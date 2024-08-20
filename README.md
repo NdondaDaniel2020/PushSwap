@@ -1,2 +1,2 @@
 # PushSwap
-PushSwap
+Sort stacks
