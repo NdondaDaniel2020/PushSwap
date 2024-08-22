@@ -18,25 +18,6 @@ void	init_data(t_data *data)
 	data->stack_b = NULL;
 }
 
-/*nao esquecer de deletar*/
-static	void	lstls(t_list *list)
-{
-	int	i;
-
-	i = 0;
-	if (list)
-	{
-		ft_printf("Lista\n");
-		while (list)
-		{
-			ft_printf("%i - %i\n", i, *(int *)list->content);
-			list = list->next;
-			i++;
-		}
-		ft_printf("\n");
-	}
-}
-
 void	add_value_in_stack(t_data *data, char *num_in_char)
 {
 	int	num_in_int;
@@ -94,7 +75,6 @@ int	main(int ac, char **av)
 	init_data(&data);
 	extract_data(&data, av);
 
-	ra(&data);
 	lstls(data.stack_a);
 
 	clean_stack(&data);
