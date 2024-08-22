@@ -17,9 +17,9 @@ int	ft_initstr(char **str)
 	char	*ini_str;
 
 	ini_str = *str;
-	(str) = (char *)malloc(sizeof(char) * 1);
-	if (!str)
+	ini_str = (char *)malloc(sizeof(char) * 1);
+	if (!ini_str)
 		return (0);
-	str[0] = '\0';
+	ini_str[0] = '\0';
 	return (1);
 }
