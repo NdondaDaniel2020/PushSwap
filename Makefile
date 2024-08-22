@@ -15,7 +15,9 @@ RUN = ./push_swap
 NAME = $(RUN).a
 FILES = push_swap.c \
 		push_swap_utils.c \
-		push_swap_clacifier.c
+		push_swap_clacifier_1.c \
+		push_swap_clacifier_2.c \
+		push_swap_clacifier_3.c
 OBJ = $(FILES:.c=.o)
 FLAGS = -Wall -Wextra -Werror
 PLIBFT = ./libft

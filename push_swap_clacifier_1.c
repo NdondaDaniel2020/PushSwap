@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_clacifier.c                              :+:      :+:    :+:   */
+/*   push_swap_clacifier_1.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmatondo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -72,88 +72,4 @@ void	pb(t_data *data)
 		data->stack_b = aux;
 		ft_printf("pb\n");
 	}
-}
-
-void	ra(t_data *data)
-{
-	t_list	*aux;
-	t_list	*fir;
-
-	if (ft_lstsize(data->stack_a) > 1)
-	{
-		fir = data->stack_a;
-		aux = data->stack_a;
-		data->stack_a = data->stack_a->next;
-		while(aux->next)
-			aux = aux->next;
-		fir->next = NULL;
-		aux->next = fir;
-		ft_printf("ra\n");
-	}
-}
-
-void	rb(t_data *data)
-{
-	t_list	*aux;
-	t_list	*fir;
-
-	if (ft_lstsize(data->stack_b) > 1)
-	{
-		fir = data->stack_b;
-		aux = data->stack_b;
-		data->stack_b = data->stack_b->next;
-		while(aux->next)
-			aux = aux->next;
-		fir->next = NULL;
-		aux->next = fir;
-		ft_printf("rb\n");
-	}
-}
-
-void	rr(t_data *data)
-{
-	ra(data);
-	rb(data);
-}
-
-void	rra(t_data *data)
-{
-	t_list	*aux;
-	t_list	*last;
-
-	if (ft_lstsize(data->stack_a) > 1)
-	{
-		aux = data->stack_a;
-		while(aux->next->next)
-			aux = aux->next;
-		last = aux->next;
-		last->next = data->stack_a;
-		aux->next = NULL;
-		data->stack_a = last;
-		ft_printf("rra\n");
-	}
-}
-
-void	rrb(t_data *data)
-{
-	t_list	*aux;
-	t_list	*last;
-
-	if (ft_lstsize(data->stack_b) > 1)
-	{
-		aux = data->stack_b;
-		while(aux->next->next)
-			aux = aux->next;
-		last = aux->next;
-		last->next = data->stack_b;
-		aux->next = NULL;
-		data->stack_b = last;
-		ft_printf("rrb\n");
-	}
-}
-
-void	rrr(t_data *data)
-{
-	ra(data);
-	rb(data);
 }
