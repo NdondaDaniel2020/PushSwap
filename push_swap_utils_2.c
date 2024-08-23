@@ -31,7 +31,7 @@ void	add_value_in_stack(t_data *data, char *num_in_char)
 	}
 	else
 	{
-		check_dublicate(data, num);
+		check_dublicate(data, num_in_int);
 		ft_lstadd_back(&data->stack_a, 
 			 ft_lstnew((void *)value_to_pointer(num_in_int)));
 	}
@@ -62,4 +62,22 @@ void	extract_data(t_data *data, char **data_list)
 		}
 		i++;
 	}
+}
+
+t_size	stack_max_and_min_value(t_list *list)
+{
+	int		max;
+	int		min;
+
+	min = *(int *)list->content;
+	max = *(int *)list->content;
+	while (list)
+	{
+		if (*(int *)list->content > max)
+			max = *(int *)list->content;
+		if (*(int *)list->content < min)
+			min = *(int *)list->content;
+		list = list->next;
+	}
+	return ((t_size){min, max});
 }
