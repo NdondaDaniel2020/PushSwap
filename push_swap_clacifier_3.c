@@ -20,7 +20,7 @@ void	rra(t_data *data)
 	if (ft_lstsize(data->stack_a) > 1)
 	{
 		aux = data->stack_a;
-		while(aux->next->next)
+		while (aux->next->next)
 			aux = aux->next;
 		last = aux->next;
 		last->next = data->stack_a;
@@ -38,7 +38,7 @@ void	rrb(t_data *data)
 	if (ft_lstsize(data->stack_b) > 1)
 	{
 		aux = data->stack_b;
-		while(aux->next->next)
+		while (aux->next->next)
 			aux = aux->next;
 		last = aux->next;
 		last->next = data->stack_b;

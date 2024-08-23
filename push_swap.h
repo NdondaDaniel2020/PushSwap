@@ -52,5 +52,6 @@ void	rrb(t_data *data);
 void	rrr(t_data *data);
 
 int		*value_to_pointer(int value);
+int		is_in_order(t_list *list);
 
 #endif

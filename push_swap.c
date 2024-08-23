@@ -38,35 +38,29 @@ static void	lstls(t_list *list)
 
 void	case_3(t_data *data)
 {
+	int		fir;
+	int		las;
 	t_size	size;
-
-	size = stack_max_and_min_value(data->stack_a);
-	ft_printf("%i - %i\n", size.min, size.max);
-}
-
-/*
-void	case_3(t_data *data)
-{
-	int		max;
-	int		min;
-	// int	fir;
-	// int	las;
 	t_list	*aux;
 
+	size = stack_max_and_min_value(data->stack_a);
 	aux = data->stack_a;
-	min = *(int *)aux->content;
-	max = *(int *)aux->content;
-	while (aux)
-	{
-		if (*(int *)aux->content > max)
-			max = *(int *)aux->content;
-		if (*(int *)aux->content < min)
-			min = *(int *)aux->content;
+	fir = *(int *)aux->content;
+	while (aux->next)
 		aux = aux->next;
-	}
-	ft_printf("%i - %i\n", min, max);
+	las = *(int *)aux->content;
+	if ((size.max == fir && size.min == las)
+		|| (size.max == las && size.min != fir))
+		sa(data);
+	if ((size.min == las && size.max != fir)
+		|| (size.max == fir && size.min != las)
+		|| (size.min == fir && size.max != las))
+		rra(data);
+	if (is_in_order(data->stack_a))
+		return ;
+	else
+		case_3(data);
 }
-*/
 
 int	main(int ac, char **av)
 {
@@ -77,8 +71,8 @@ int	main(int ac, char **av)
 	extract_data(&data, av);
 
 	case_3(&data);
-	lstls(data.stack_a);
 
+	lstls(data.stack_a);
 	clean_stack(&data);
 	return (0);
 }
