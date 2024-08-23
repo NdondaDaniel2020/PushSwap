@@ -18,7 +18,9 @@ FILES = push_swap.c \
 		push_swap_utils_2.c \
 		push_swap_clacifier_1.c \
 		push_swap_clacifier_2.c \
-		push_swap_clacifier_3.c
+		push_swap_clacifier_3.c \
+		push_swap_case.c
+
 OBJ = $(FILES:.c=.o)
 FLAGS = -Wall -Wextra -Werror
 PLIBFT = ./libft
