@@ -22,6 +22,14 @@ typedef struct s_data
 	t_list	*stack_b;
 }			t_data;
 
+typedef struct s_size
+{
+	int	min;
+	int	max;
+}		t_size;
+
+t_size	stack_max_and_min_value(t_list *list);
+
 void	extract_data(t_data *data, char **data_list);
 void	check_dublicate(t_data *data, int num);
 void	lstdel_front(t_list **list);
