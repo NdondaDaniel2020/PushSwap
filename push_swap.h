@@ -36,6 +36,10 @@ void	lstdel_front(t_list **list);
 void	free_matrix(char **matrix);
 void	clean_stack(t_data *data);
 
+void	case_3(t_data *data);
+void	case_4(t_data *data);
+void	case_5(t_data *data);
+
 void	sa(t_data *date);
 void	sb(t_data *data);
 void	ss(t_data *data);

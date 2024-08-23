@@ -36,30 +36,17 @@ static void	lstls(t_list *list)
 	}
 }
 
-void	case_3(t_data *data)
+static void	resolution(t_data *data)
 {
-	int		fir;
-	int		las;
-	t_size	size;
-	t_list	*aux;
+	int	i;
 
-	size = stack_max_and_min_value(data->stack_a);
-	aux = data->stack_a;
-	fir = *(int *)aux->content;
-	while (aux->next)
-		aux = aux->next;
-	las = *(int *)aux->content;
-	if ((size.max == fir && size.min == las)
-		|| (size.max == las && size.min != fir))
-		sa(data);
-	if ((size.min == las && size.max != fir)
-		|| (size.max == fir && size.min != las)
-		|| (size.min == fir && size.max != las))
-		rra(data);
-	if (is_in_order(data->stack_a))
-		return ;
-	else
+	i = ft_lstsize(data->stack_a);
+	if (i >= 2 && i <= 3)
 		case_3(data);
+	if (i == 4)
+		case_4(data);
+	if (i == 5)
+		case_4(data);
 }
 
 int	main(int ac, char **av)
@@ -69,9 +56,7 @@ int	main(int ac, char **av)
 	(void)ac;
 	init_data(&data);
 	extract_data(&data, av);
-
-	case_3(&data);
-
+	resolution(&data);
 	lstls(data.stack_a);
 	clean_stack(&data);
 	return (0);
