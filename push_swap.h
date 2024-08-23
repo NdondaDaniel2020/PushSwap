@@ -23,6 +23,7 @@ typedef struct s_data
 }			t_data;
 
 void	extract_data(t_data *data, char **data_list);
+void	check_dublicate(t_data *data, int num);
 void	lstdel_front(t_list **list);
 void	free_matrix(char **matrix);
 void	clean_stack(t_data *data);

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_utils.c                                  :+:      :+:    :+:   */
+/*   push_swap_utils_1.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmatondo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -54,4 +54,21 @@ void	free_matrix(char **matrix)
 		i++;
 	}
 	free(matrix);
+}
+
+void	check_dublicate(t_data *data, int num)
+{
+	t_list	*aux;
+
+	aux = data->stack_a;
+	while (aux)
+	{
+		if (*(int *)aux->content == num)
+		{
+			ft_printf("value duplicate");
+			clean_stack(data);
+			exit(1);
+		}
+		aux = aux->next;
+	}
 }
