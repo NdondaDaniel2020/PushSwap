@@ -32,8 +32,8 @@ void	add_value_in_stack(t_data *data, char *num_in_char)
 	else
 	{
 		check_dublicate(data, num_in_int);
-		ft_lstadd_back(&data->stack_a, 
-			 ft_lstnew((void *)value_to_pointer(num_in_int)));
+		ft_lstadd_back(&data->stack_a,
+			ft_lstnew((void *)value_to_pointer(num_in_int)));
 	}
 }
 
@@ -80,4 +80,15 @@ t_size	stack_max_and_min_value(t_list *list)
 		list = list->next;
 	}
 	return ((t_size){min, max});
+}
+
+int	is_in_order(t_list *list)
+{
+	while (list->next)
+	{
+		if (*(int *)list->content > *(int *)list->next->content)
+			return (0);
+		list = list->next;
+	}
+	return (1);
 }

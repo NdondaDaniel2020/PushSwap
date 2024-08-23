@@ -22,7 +22,7 @@ void	ra(t_data *data)
 		fir = data->stack_a;
 		aux = data->stack_a;
 		data->stack_a = data->stack_a->next;
-		while(aux->next)
+		while (aux->next)
 			aux = aux->next;
 		fir->next = NULL;
 		aux->next = fir;
@@ -40,7 +40,7 @@ void	rb(t_data *data)
 		fir = data->stack_b;
 		aux = data->stack_b;
 		data->stack_b = data->stack_b->next;
-		while(aux->next)
+		while (aux->next)
 			aux = aux->next;
 		fir->next = NULL;
 		aux->next = fir;
