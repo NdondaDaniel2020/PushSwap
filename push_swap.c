@@ -40,13 +40,16 @@ static void	resolution(t_data *data)
 {
 	int	i;
 
-	i = ft_lstsize(data->stack_a);
-	if (i >= 2 && i <= 3)
-		case_3(data);
-	if (i == 4)
-		case_4(data);
-	if (i == 5)
-		case_4(data);
+	if (!is_in_order(data->stack_a))
+	{
+		i = ft_lstsize(data->stack_a);
+		if (i >= 2 && i <= 3)
+			case_3(data);
+		if (i == 4)
+			case_4(data);
+		// if (i == 5)
+		// 	case_5(data);
+	}
 }
 
 int	main(int ac, char **av)
