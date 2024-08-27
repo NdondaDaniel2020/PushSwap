@@ -38,6 +38,17 @@ void	case_3(t_data *data)
 		case_3(data);
 }
 
+static	void	link_case_4_case_3(t_data *data)
+{
+	if (ft_lstsize(data->stack_a) == 4)
+		case_4(data);
+	else
+	{
+		case_3(data);
+		pa(data);
+	}
+}
+
 void	case_4(t_data *data)
 {
 	int		fir;
@@ -55,21 +66,17 @@ void	case_4(t_data *data)
 	las = *(int *)aux->content;
 	if (size.min == fir)
 		pb(data);
-	if ((size.min == las) || (size.min != fir &&
-		size.min != seg && size.min != las))
+	if (size.min == las)
 		rra(data);
+	if (size.min != fir &&
+		size.min != seg && size.min != las)
+		ra(data);
 	if (size.min == seg)
 		sa(data);
-	if (ft_lstsize(data->stack_a) == 4)
-		case_4(data);
-	else
-	{
-		case_3(data);
-		pa(data);
-	}
+	link_case_4_case_3(data);
 }
 
-void	case_5(t_data *data)
+void	case_5(t_data *data);
 {
 	int		fir;
 	int		seg;
@@ -91,11 +98,5 @@ void	case_5(t_data *data)
 		rra(data);
 	if (size.min == seg)
 		sa(data);
-	if (ft_lstsize(data->stack_a) == 4)
-		case_5(data);
-	else
-	{
-		case_4(data);
-		pa(data);
-	}
+	// link_case_5_case_4(data);
 }
