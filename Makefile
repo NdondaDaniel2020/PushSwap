@@ -16,6 +16,7 @@ NAME = $(RUN).a
 FILES = push_swap.c \
 		push_swap_utils_1.c \
 		push_swap_utils_2.c \
+		push_swap_utils_3.c \
 		push_swap_clacifier_1.c \
 		push_swap_clacifier_2.c \
 		push_swap_clacifier_3.c \
@@ -43,7 +44,7 @@ e:
 	$(CC) $(FLAGS) $(FILES) $(LIBFT) -o $(RUN)
 
 r:
-	$(CC) $(RF) $(LIBFT) -o ./run
+	$(CC) $(RF) $(LIBFT) -o ./r
 
 $(LIBFT):
 	make bonus -C $(PLIBFT)
@@ -58,4 +59,4 @@ fclean:	clean
 
 re:	fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all run e r clean fclean re

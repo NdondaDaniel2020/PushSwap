@@ -12,23 +12,17 @@
 
 #include "push_swap.h"
 
-void	add_value_in_stack(t_data *data, char *num_in_char)
+static void	add_value_in_stack(t_data *data, char *num_in_char)
 {
 	int	num_in_int;
 
+	check_is_number(data, num_in_char);
+	check_size_number(data, num_in_char);
 	num_in_int = ft_atoi(num_in_char);
 	if (num_in_int == 0 && num_in_int != (num_in_char[0] - '0'))
-	{
-		ft_printf("%s not number", num_in_char);
-		clean_stack(data);
-		exit(1);
-	}
-	else if (num_in_int < -2147483647 && num_in_int > 2147483647)
-	{
-		ft_printf("not integer", num_in_char);
-		clean_stack(data);
-		exit(1);
-	}
+		error(data);
+	else if (num_in_int <= -2147483647 || num_in_int >= 2147483647)
+		error(data);
 	else
 	{
 		check_dublicate(data, num_in_int);
@@ -44,9 +38,10 @@ void	extract_data(t_data *data, char **data_list)
 	char	**spliting_num;
 
 	i = 1;
-	c = 0;
 	while (data_list[i])
 	{
+		if (word_counter(data_list[i], ' ') == 0)
+			error(data);
 		if (word_counter(data_list[i], ' ') == 1)
 			add_value_in_stack(data, data_list[i]);
 		else
