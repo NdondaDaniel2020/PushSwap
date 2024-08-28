@@ -53,6 +53,7 @@ clean:
 	@/bin/rm -f $(OBJ)
 
 fclean:	clean
+	@/bin/rm -f ./r
 	@/bin/rm -f $(NAME)
 	@/bin/rm -f $(RUN)
 	@make fclean -C $(PLIBFT)
