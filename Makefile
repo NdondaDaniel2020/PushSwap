@@ -55,7 +55,6 @@ fclean:	clean
 	@/bin/rm -f $(NAME)
 	@/bin/rm -f $(RUN)
 	@make fclean -C $(PLIBFT)
-	@make clean -C $(PMLX)
 
 re:	fclean all
 
