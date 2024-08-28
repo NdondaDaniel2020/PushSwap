@@ -64,11 +64,7 @@ void	check_dublicate(t_data *data, int num)
 	while (aux)
 	{
 		if (*(int *)aux->content == num)
-		{
-			ft_printf("value duplicate");
-			clean_stack(data);
-			exit(1);
-		}
+			error(data);
 		aux = aux->next;
 	}
 }

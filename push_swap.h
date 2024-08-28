@@ -55,6 +55,11 @@ void	rra(t_data *data);
 void	rrb(t_data *data);
 void	rrr(t_data *data);
 
+void	error(t_data *data);
+
+void	check_size_number(t_data *data, char *num_in_char);
+void	check_is_number(t_data *data, char *num_in_char);
+
 int		*value_to_pointer(int value);
 int		is_in_order(t_list *list);
 

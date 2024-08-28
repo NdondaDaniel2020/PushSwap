@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rascunho.c                                         :+:      :+:    :+:   */
+/*   push_swap_utils_3.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmatondo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,39 @@
 
 #include "push_swap.h"
 
-static void	check_is_number(char *num_in_char)
+void	error(t_data *data)
+{
+	write(2, "Error\n", 6);
+	clean_stack(data);
+	exit(1);
+}
+
+void	check_size_number(t_data *data, char *num_in_char)
+{
+	int	i;
+	int	ix;
+	char	number_max[] = "2147483647";
+
+	i = 0;
+	ix = 0;
+	if ((ft_strlen(num_in_char) == 10)
+		|| (ft_strlen(num_in_char) == 11 && num_in_char[0] == '-'))
+	{
+		if (ft_strlen(num_in_char) == 11 && num_in_char[0] == '-')
+			i++;
+		while (num_in_char[i])
+		{
+			if (num_in_char[i] > number_max[ix])
+				error(data);
+			i++;
+			ix++;
+		}
+	}
+	else if (ft_strlen(num_in_char) > 10)
+		error(data);
+}
+
+void	check_is_number(t_data *data, char *num_in_char)
 {
 	int	i;
 
@@ -26,40 +58,8 @@ static void	check_is_number(char *num_in_char)
 				&& ft_isdigit(num_in_char[i + 1]))
 				ft_printf("");
 			else
-				//del
-						
+				error(data);
 		}
 		i++;
 	}
 }
-
-// && ft_isdigit(num_in_char[i + 1] && (i == 0 || num_in_char[i - 1] == ' ')))
-int	main(int ac, char **av)
-{
-	t_list	*list;
-
-	(void)ac;
-	check_is_number("111-1");
-	return (0);
-}
-
-/*
-nao esquecer de deletar
-static	void	lstls(t_list *list)
-{
-	int	i;
-
-	i = 0;
-	if (list)
-	{
-		ft_printf("Lista\n");
-		while (list)
-		{
-			ft_printf("%i - %i\n", i, *(int *)list->content);
-			list = list->next;
-			i++;
-		}
-		ft_printf("\n");
-	}
-}
-*/

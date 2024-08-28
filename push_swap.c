@@ -41,9 +41,12 @@ int	main(int ac, char **av)
 	t_data	data;
 
 	(void)ac;
-	init_data(&data);
-	extract_data(&data, av);
-	resolution(&data);
-	clean_stack(&data);
+	if (ac > 1)
+	{
+		init_data(&data);
+		extract_data(&data, av);
+		resolution(&data);
+		clean_stack(&data);
+	}
 	return (0);
 }
