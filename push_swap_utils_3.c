@@ -19,14 +19,20 @@ void	error(t_data *data)
 	exit(1);
 }
 
+static char	*fun_number_max(void)
+{
+	return ("2147483647");
+}
+
 void	check_size_number(t_data *data, char *num_in_char)
 {
-	int	i;
-	int	ix;
-	char	number_max[] = "2147483647";
+	int		i;
+	int		ix;
+	char	*number_max;
 
 	i = 0;
 	ix = 0;
+	number_max = fun_number_max();
 	if ((ft_strlen(num_in_char) == 10)
 		|| (ft_strlen(num_in_char) == 11 && num_in_char[0] == '-'))
 	{

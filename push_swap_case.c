@@ -27,11 +27,11 @@ void	case_3(t_data *data)
 	las = *(int *)aux->content;
 	if ((size.max == fir && size.min == las)
 		|| (size.max == las && size.min != fir))
-		sa(data);
+		sa(data, 1);
 	if ((size.min == las && size.max != fir)
 		|| (size.max == fir && size.min != las)
 		|| (size.min == fir && size.max != las))
-		rra(data);
+		rra(data, 1);
 	if (is_in_order(data->stack_a))
 		return ;
 	else
@@ -67,12 +67,12 @@ void	case_4(t_data *data)
 	if (size.min == fir)
 		pb(data);
 	if (size.min == las)
-		rra(data);
+		rra(data, 1);
 	if (size.min == seg)
-		sa(data);
+		sa(data, 1);
 	if (size.min != fir
 		&& size.min != seg && size.min != las)
-		ra(data);
+		ra(data, 1);
 	link_case_4_case_3(data);
 }
 
@@ -105,11 +105,11 @@ void	case_5(t_data *data, t_size size)
 	if (size.min == point[0])
 		pb(data);
 	if ((size.min == point[3]) || (size.min == point[2]))
-		rra(data);
+		rra(data, 1);
 	if (size.min == point[1])
-		sa(data);
+		sa(data, 1);
 	if (size.min != point[0] && size.min != point[2]
 		&& size.min != point[1] && size.min != point[3])
-		ra(data);
+		ra(data, 1);
 	link_case_5_case_4(data, size);
 }
