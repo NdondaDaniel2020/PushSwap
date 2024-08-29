@@ -20,6 +20,8 @@ FILES = push_swap.c \
 		push_swap_clacifier_1.c \
 		push_swap_clacifier_2.c \
 		push_swap_clacifier_3.c \
+		push_swap_clacifier_point.c \
+		push_swap_operating_cost.c \
 		push_swap_case.c
 
 OBJ = $(FILES:.c=.o)

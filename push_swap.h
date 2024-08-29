@@ -28,6 +28,12 @@ typedef struct s_size
 	int	max;
 }		t_size;
 
+typedef struct s_key_value
+{
+	int	key;
+	int	value;
+}		t_key_value;
+
 t_size	stack_max_and_min_value(t_list *list);
 
 void	extract_data(t_data *data, char **data_list);
@@ -40,19 +46,19 @@ void	case_3(t_data *data);
 void	case_4(t_data *data);
 void	case_5(t_data *data, t_size size);
 
-void	sa(t_data *date);
-void	sb(t_data *data);
+void	sa(t_data *date, int i);
+void	sb(t_data *data, int i);
 void	ss(t_data *data);
 
 void	pa(t_data *data);
 void	pb(t_data *data);
 
-void	ra(t_data *data);
-void	rb(t_data *data);
+void	ra(t_data *data, int i);
+void	rb(t_data *data, int i);
 void	rr(t_data *data);
 
-void	rra(t_data *data);
-void	rrb(t_data *data);
+void	rra(t_data *data, int i);
+void	rrb(t_data *data, int i);
 void	rrr(t_data *data);
 
 void	error(t_data *data);

@@ -18,6 +18,16 @@ static void	init_data(t_data *data)
 	data->stack_b = NULL;
 }
 
+static void	clacifier_point(t_data *data)
+{
+	// int			i
+	// t_key_value	point;
+	(void)	data;
+	// i = ft_lstsize(data->stack_a);
+
+
+}
+
 static void	resolution(t_data *data)
 {
 	int		i;
@@ -33,6 +43,8 @@ static void	resolution(t_data *data)
 			case_4(data);
 		if (i == 5)
 			case_5(data, size);
+		if (i > 5)
+			clacifier_point(data);
 	}
 }
 

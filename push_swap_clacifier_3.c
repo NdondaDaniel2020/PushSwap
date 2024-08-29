@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void	rra(t_data *data)
+void	rra(t_data *data, int i)
 {
 	t_list	*aux;
 	t_list	*last;
@@ -26,11 +26,12 @@ void	rra(t_data *data)
 		last->next = data->stack_a;
 		aux->next = NULL;
 		data->stack_a = last;
-		ft_printf("rra\n");
+		if (i == 1)
+			ft_printf("rra\n");
 	}
 }
 
-void	rrb(t_data *data)
+void	rrb(t_data *data, int i)
 {
 	t_list	*aux;
 	t_list	*last;
@@ -44,12 +45,14 @@ void	rrb(t_data *data)
 		last->next = data->stack_b;
 		aux->next = NULL;
 		data->stack_b = last;
-		ft_printf("rrb\n");
+		if (i == 1)
+			ft_printf("rrb\n");
 	}
 }
 
 void	rrr(t_data *data)
 {
-	ra(data);
-	rb(data);
+	ra(data, 0);
+	rb(data, 0);
+	ft_printf("rrr\n");
 }
