@@ -24,8 +24,6 @@ static void	clacifier_point(t_data *data)
 	// t_key_value	point;
 	(void)	data;
 	// i = ft_lstsize(data->stack_a);
-
-
 }
 
 static void	resolution(t_data *data)
