@@ -57,17 +57,24 @@ static	void	lstls(t_list *list)
 	}
 }
 
-static t_op get_the_shortest_operation
+static t_operation get_the_shortest_operation(t_data *data)
+{
+	// int	pos;
+
+	// pos = 1;
+	lstls(data->stack_a);
+	lstls(data->stack_b);
+	return ((t_operation){-1, ""});
+}
 
 void	clacifier_point(t_data *data)
 {
 	t_data	*new_data;
 
+	pb(data);
+	pb(data);
 	new_data = cpy_data(data);
-
-	lstls(new_data->stack_a);
-	lstls(new_data->stack_b);
-
+	get_the_shortest_operation(new_data);
 	clean_stack(new_data);
 	free(new_data);
 }
