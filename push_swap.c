@@ -12,18 +12,10 @@
 
 #include "push_swap.h"
 
-static void	init_data(t_data *data)
+void	init_data(t_data *data)
 {
 	data->stack_a = NULL;
 	data->stack_b = NULL;
-}
-
-static void	clacifier_point(t_data *data)
-{
-	// int			i
-	// t_key_value	point;
-	(void)	data;
-	// i = ft_lstsize(data->stack_a);
 }
 
 static void	resolution(t_data *data)
