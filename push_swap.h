@@ -28,11 +28,11 @@ typedef struct s_size
 	int	max;
 }		t_size;
 
-typedef struct s_key_value
+typedef struct s_operation
 {
-	int	key;
-	int	value;
-}		t_key_value;
+	int		value;
+	char	*operation_to_do;
+} 			t_operation;
 
 t_size	stack_max_and_min_value(t_list *list);
 
@@ -41,10 +41,12 @@ void	check_dublicate(t_data *data, int num);
 void	lstdel_front(t_list **list);
 void	free_matrix(char **matrix);
 void	clean_stack(t_data *data);
+void	init_data(t_data *data);
 
 void	case_3(t_data *data);
 void	case_4(t_data *data);
 void	case_5(t_data *data, t_size size);
+void	clacifier_point(t_data *data);
 
 void	sa(t_data *date, int i);
 void	sb(t_data *data, int i);
