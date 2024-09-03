@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-static	void	lstls(t_list *list)
+void	lstls(t_list *list)
 {
 	int	i;
 
@@ -30,98 +30,131 @@ static	void	lstls(t_list *list)
 	}
 }
 
-static int get_pos_in_stack(int value, t_list *stack)
+t_operation	*join_operation(t_operation *op, char *new_op)
 {
-	int		i;
-	t_list	*aux;
-
-	i = 0;
-	aux = stack;
-	while (aux->next)
+	if (!op->operation_to_do)
 	{
-		if (value == *(int *)aux->content)
-			return (i);
-		aux = aux->next;
-		i++;
-	}
-	return (-1);
-}
-
-static char	*join_operation(char *op, char *new_op)
-{
-	if (!op)
-	{
-		ft_strlcpy(op, new_op, ft_strlen(new_op));
+		op->value = 0;
+		op->operation_to_do = NULL;
+		op->operation_to_do = (char *)malloc(ft_strlen(new_op) + 1);
+		if (!op->operation_to_do)
+			return (op);
+		op->value++;
+		ft_strlcpy(op->operation_to_do, new_op, ft_strlen(new_op) + 1);
 		return (op);
 	}
 	else
-		return (ft_strjoin_free(op, new_op));
+	{
+		op->operation_to_do = ft_strjoin_free(op->operation_to_do, new_op);
+		if (!op->operation_to_do)
+			return (op);
+		op->value++;
+		return (op);
+	}
 }
 
-static char	*send_to_top(int value, t_data *data, char *operation)
+t_operation	*count_operation_to_b(int value, t_data *data)
 {
-	int		fir;
-	int		seg;
-	int		pos;
-	int		size;
-	char	*op;
-	t_list	*aux;
+	int			pos;
+	int			size;
+	t_operation	*op;
+	t_list		*aux;
 
-	op = NULL;
+	op = (t_operation *)malloc(sizeof(t_operation));
 	size = ft_lstsize(data->stack_b);
 	aux = data->stack_b;
-	fir = *(int *)aux->content;
-	seg = *(int *)aux->next->content;
-	pos = get_pos_in_stack(value, data->stack_b);
-	while (aux->next)
-		aux = aux->next;
-	if (value == seg)
+	while (value != *(int *)aux->content)
 	{
-		sb(data, 0);
-		op = join_operation(op, " sb ");
+		aux = data->stack_b;
+		pos = get_pos_in_stack(value, data->stack_b);
+		if (value == *(int *)aux->next->content)
+		{
+			sb(data, 0);
+			op = join_operation(op, " sb ");
+		}
+		else if (pos > (size / 2))
+		{
+			rrb(data, 0);
+			op = join_operation(op, " rrb ");
+		}
+		else if (value != *(int *)aux->content
+			&& value != *(int *)aux->next->content && pos <= (size / 2))
+		{
+			rb(data, 0);
+			op = join_operation(op, " rb ");
+		}
 	}
-	if (pos > (size / 2))
-	{
-		rrb(data, 0);
-		op = join_operation(op, " rrb ");
-	}
-	if (value != seg && pos <= (size / 2))
-	{
-		rb(data, 0);
-		op = join_operation(op, " rb ");
-	}
-	if (value == fir)
-		return (op);
-	else
-		send_to_top(value, data);
+	return (op);
 }
 
-static t_operation get_the_shortest_operation(t_data *data)
+t_operation	*count_operation_to_a(int value, t_data *data)
 {
+	int			pos;
+	int			size;
+	t_operation	*op;
+	t_list		*aux;
 
-	int		value;
-	t_list	*aux;
+	op = (t_operation *)malloc(sizeof(t_operation));
+	size = ft_lstsize(data->stack_a);
+	aux = data->stack_a;
+	while (value != *(int *)aux->content)
+	{
+		aux = data->stack_a;
+		pos = get_pos_in_stack(value, data->stack_a);
+		if (value == *(int *)aux->next->content)
+		{
+			sb(data, 0);
+			op = join_operation(op, " sb ");
+		}
+		else if (pos > (size / 2))
+		{
+			rrb(data, 0);
+			op = join_operation(op, " rrb ");
+		}
+		else if (value != *(int *)aux->content
+			&& value != *(int *)aux->next->content && pos <= (size / 2))
+		{
+			rb(data, 0);
+			op = join_operation(op, " rb ");
+		}
+	}
+	return (op);
+}
+
+void	get_the_shortest_operation(t_data *data)
+{
+	int			value;
+	t_list		*aux;
+	t_data		*new_data;
+	// t_operation	*operation_to_do;
+
+
 
 	aux = data->stack_a;
 	while (aux)
 	{
-		value = get_predecessor(data->stack_b, *(int *)aux->content);
-		ft_printf("%i\n", *(int *)aux->content);
+		new_data = cpy_data(data);
+
+
+		value = get_predecessor(new_data->stack_b, *(int *)aux->content);
+		if (value != -1)
+		{
+
+			ft_printf("[[%i]]\n\n", count_operation_to_b(value, new_data)->value);
+			// ft_printf("[[%i]]\n\n", count_operation_to_a(value, new_data)->value); tem erro 
+		}
+
+
 		aux = aux->next;
-	}
-	lstls(data->stack_a);
-	lstls(data->stack_b);
-	return ((t_operation){-1, ""});
+		clean_stack(new_data);
+		free(new_data);
+	}	
 }
 
 void	clacifier_point(t_data *data)
 {
-	t_data	*new_data;
+	pb(data);
+	pb(data);
 
-	pb(data);
-	pb(data);
-	new_data = cpy_data(data);
-	get_the_shortest_operation(new_data);
-	clean_stack(new_data);
-	free(new_data);
+	get_the_shortest_operation(data);
 }
