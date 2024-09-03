@@ -12,7 +12,6 @@
 
 #include "push_swap.h"
 
-
 t_data	*cpy_data(t_data *data)
 {
 	int		value;
@@ -25,7 +24,7 @@ t_data	*cpy_data(t_data *data)
 	while (aux)
 	{
 		value = *(int *)aux->content;
-		ft_lstadd_back(&new_data->stack_a, 
+		ft_lstadd_back(&new_data->stack_a,
 			ft_lstnew((void *)value_to_pointer(value)));
 		aux = aux->next;
 	}
@@ -33,19 +32,36 @@ t_data	*cpy_data(t_data *data)
 	while (aux)
 	{
 		value = *(int *)aux->content;
-		ft_lstadd_back(&new_data->stack_b, 
+		ft_lstadd_back(&new_data->stack_b,
 			ft_lstnew((void *)value_to_pointer(value)));
 		aux = aux->next;
 	}
 	return (new_data);
 }
 
-int get_predecessor(t_list *list, int value)
+int	get_pos_in_stack(int value, t_list *stack)
+{
+	int		i;
+	t_list	*aux;
+
+	i = 0;
+	aux = stack;
+	while (aux->next)
+	{
+		if (value == *(int *)aux->content)
+			return (i);
+		aux = aux->next;
+		i++;
+	}
+	return (-1);
+}
+
+int	get_predecessor(t_list *list, int value)
 {
 	int	i;
 	int	sum;
 	int	pos;
-	int pressed;
+	int	pressed;
 
 	(void)value;
 	if (!list)
