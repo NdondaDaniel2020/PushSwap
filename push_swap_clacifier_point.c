@@ -12,33 +12,6 @@
 
 #include "push_swap.h"
 
-static t_data	*cpy_data(t_data *data)
-{
-	int		value;
-	t_list	*aux;
-	t_data	*new_data;
-
-	aux = data->stack_a;
-	new_data = (t_data *)malloc(sizeof(t_data));
-	init_data(new_data);
-	while (aux)
-	{
-		value = *(int *)aux->content;
-		ft_lstadd_back(&new_data->stack_a, 
-			ft_lstnew((void *)value_to_pointer(value)));
-		aux = aux->next;
-	}
-	aux = data->stack_b;
-	while (aux)
-	{
-		value = *(int *)aux->content;
-		ft_lstadd_back(&new_data->stack_b, 
-			ft_lstnew((void *)value_to_pointer(value)));
-		aux = aux->next;
-	}
-	return (new_data);
-}
-
 static	void	lstls(t_list *list)
 {
 	int	i;
@@ -57,51 +30,85 @@ static	void	lstls(t_list *list)
 	}
 }
 
-static int get_position_predecessor(t_list *list, int value)
+static int get_pos_in_stack(int value, t_list *stack)
 {
-	int	i;
-	int	sum;
-	int	pos;
-	int pressed;
+	int		i;
+	t_list	*aux;
 
-	(void)value;
-	if (!list)
-		return (-1);
 	i = 0;
-	pressed = 0;
-	while (list)
+	aux = stack;
+	while (aux->next)
 	{
-		sum = value - *(int *)list->content;
-		if (sum > 0 && (sum < pressed || i == 0))
-		{
-			pos = i;
-			pressed = sum;
-		}
-		list = list->next;
+		if (value == *(int *)aux->content)
+			return (i);
+		aux = aux->next;
 		i++;
 	}
-	return (pos);
+	return (-1);
+}
+
+static char	*join_operation(char *op, char *new_op)
+{
+	if (!op)
+	{
+		ft_strlcpy(op, new_op, ft_strlen(new_op));
+		return (op);
+	}
+	else
+		return (ft_strjoin_free(op, new_op));
+}
+
+static char	*send_to_top(int value, t_data *data, char *operation)
+{
+	int		fir;
+	int		seg;
+	int		pos;
+	int		size;
+	char	*op;
+	t_list	*aux;
+
+	op = NULL;
+	size = ft_lstsize(data->stack_b);
+	aux = data->stack_b;
+	fir = *(int *)aux->content;
+	seg = *(int *)aux->next->content;
+	pos = get_pos_in_stack(value, data->stack_b);
+	while (aux->next)
+		aux = aux->next;
+	if (value == seg)
+	{
+		sb(data, 0);
+		op = join_operation(op, " sb ");
+	}
+	if (pos > (size / 2))
+	{
+		rrb(data, 0);
+		op = join_operation(op, " rrb ");
+	}
+	if (value != seg && pos <= (size / 2))
+	{
+		rb(data, 0);
+		op = join_operation(op, " rb ");
+	}
+	if (value == fir)
+		return (op);
+	else
+		send_to_top(value, data);
 }
 
 static t_operation get_the_shortest_operation(t_data *data)
 {
 
-	int		pos;
-	//t_list	*aux;
+	int		value;
+	t_list	*aux;
 
-	//aux = data->stack_a;
-	// cria uma funcao que pegue um numero
-	// e retorne a posicao do numero na pilha b
-	pos = get_position_predecessor(data->stack_b, 7);
-	ft_printf("antecesso de %i esta na pos %i b\n", 7, pos);
-	/*
+	aux = data->stack_a;
 	while (aux)
 	{
-		pos = get_position_predecessor(data->stack_b, *(int *)aux->content);
-		ft_printf("%i %i\n", *(int *)aux->content, pos);
+		value = get_predecessor(data->stack_b, *(int *)aux->content);
+		ft_printf("%i\n", *(int *)aux->content);
 		aux = aux->next;
 	}
-	*/
 	lstls(data->stack_a);
 	lstls(data->stack_b);
 	return ((t_operation){-1, ""});
