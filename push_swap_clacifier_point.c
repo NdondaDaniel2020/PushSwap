@@ -57,11 +57,51 @@ static	void	lstls(t_list *list)
 	}
 }
 
+static int get_position_predecessor(t_list *list, int value)
+{
+	int	i;
+	int	sum;
+	int	pos;
+	int pressed;
+
+	(void)value;
+	if (!list)
+		return (-1);
+	i = 0;
+	pressed = 0;
+	while (list)
+	{
+		sum = value - *(int *)list->content;
+		if (sum > 0 && (sum < pressed || i == 0))
+		{
+			pos = i;
+			pressed = sum;
+		}
+		list = list->next;
+		i++;
+	}
+	return (pos);
+}
+
 static t_operation get_the_shortest_operation(t_data *data)
 {
-	// int	pos;
 
-	// pos = 1;
+	int		pos;
+	//t_list	*aux;
+
+	//aux = data->stack_a;
+	// cria uma funcao que pegue um numero
+	// e retorne a posicao do numero na pilha b
+	pos = get_position_predecessor(data->stack_b, 7);
+	ft_printf("antecesso de %i esta na pos %i b\n", 7, pos);
+	/*
+	while (aux)
+	{
+		pos = get_position_predecessor(data->stack_b, *(int *)aux->content);
+		ft_printf("%i %i\n", *(int *)aux->content, pos);
+		aux = aux->next;
+	}
+	*/
 	lstls(data->stack_a);
 	lstls(data->stack_b);
 	return ((t_operation){-1, ""});
