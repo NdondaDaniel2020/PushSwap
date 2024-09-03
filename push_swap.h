@@ -71,4 +71,8 @@ void	check_is_number(t_data *data, char *num_in_char);
 int		*value_to_pointer(int value);
 int		is_in_order(t_list *list);
 
+int		get_predecessor(t_list *list, int value);
+
+t_data	*cpy_data(t_data *data);
+
 #endif
