@@ -74,6 +74,8 @@ int		is_in_order(t_list *list);
 int		get_predecessor(t_list *list, int value);
 int		get_pos_in_stack(int value, t_list *stack);
 
+void	free_operation(t_operation *op);
+
 t_data	*cpy_data(t_data *data);
 
 #endif

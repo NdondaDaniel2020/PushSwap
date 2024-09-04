@@ -46,7 +46,7 @@ int	get_pos_in_stack(int value, t_list *stack)
 
 	i = 0;
 	aux = stack;
-	while (aux->next)
+	while (aux)
 	{
 		if (value == *(int *)aux->content)
 			return (i);
@@ -81,4 +81,10 @@ int	get_predecessor(t_list *list, int value)
 		i++;
 	}
 	return (pos);
+}
+
+void	free_operation(t_operation *op)
+{
+	free(op->operation_to_do);
+	free(op);
 }
