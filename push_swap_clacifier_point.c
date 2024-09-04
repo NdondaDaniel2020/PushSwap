@@ -56,11 +56,56 @@ t_operation	*join_operation_to_do(t_operation *op_a, t_operation *op_b)
 	int		i;
 	char	**to_do_a;
 	char	**to_do_b;
+	char	*ope_join;
 
 	i = 0;
-	to_do_a = ft_split(op_a->operation_to_do, ' ');
-	to_do_b = ft_split(op_b->operation_to_do, ' ');
-	ft_printf("%s %s\n", to_do_a[i], to_do_b[i]);
+	to_do_a = NULL;
+	to_do_b = NULL;
+	ope_join = (char *)ft_calloc(1, sizeof(char));
+	if (op_a->operation_to_do)
+		to_do_a = ft_split(op_a->operation_to_do, ' ');
+	if (op_b->operation_to_do)
+		to_do_b = ft_split(op_b->operation_to_do, ' ');
+
+	if (op_a->operation_to_do && op_b->operation_to_do)
+	{
+		while (to_do_a[i] || to_do_b[i])
+		{
+			ft_printf("{%s} {%s}", to_do_a[i], to_do_b[i]);
+
+			if (!ft_strncmp(to_do_a[i], "sa", 2) && !ft_strncmp(to_do_b[i], "sb", 2))
+				ope_join = ft_strjoin_free(ope_join, " ss ");
+			else if (!ft_strncmp(to_do_a[i], "ra", 2) && !ft_strncmp(to_do_b[i], "rb", 2))
+				ope_join = ft_strjoin_free(ope_join, " rr ");
+			else if (!ft_strncmp(to_do_a[i], "rra", 3) && !ft_strncmp(to_do_b[i], "rrb", 3))
+				ope_join = ft_strjoin_free(ope_join, " rrr ");
+			else if (to_do_a[i] && to_do_b[i])
+			{
+				ope_join = ft_strjoin_free(ope_join, " ");
+				ope_join = ft_strjoin_free(ope_join, to_do_a[i]);
+				ope_join = ft_strjoin_free(ope_join, " ");
+				ope_join = ft_strjoin_free(ope_join, to_do_b[i]);
+				ope_join = ft_strjoin_free(ope_join, " ");
+			}
+			else if (to_do_a[i] && !to_do_b[i])
+			{
+				ope_join = ft_strjoin_free(ope_join, " ");
+				ope_join = ft_strjoin_free(ope_join, to_do_a[i]);
+				ope_join = ft_strjoin_free(ope_join, " ");
+			}
+			else if (!to_do_a[i] && to_do_b[i])
+			{
+				ope_join = ft_strjoin_free(ope_join, " ");
+				ope_join = ft_strjoin_free(ope_join, to_do_b[i]);
+				ope_join = ft_strjoin_free(ope_join, " ");
+			}
+			i++;
+		}
+	}
+
+	ft_printf("%s\n", ope_join);
+
+	// ft_printf("%s %s\n", to_do_a[i], to_do_b[i]);
 	// while (to_do_a[i] || to_do_b[i])
 	// {
 	// 	ft_printf("{%s} {%s}", to_do_a[i], to_do_b[i]);
