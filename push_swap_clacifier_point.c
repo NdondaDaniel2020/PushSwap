@@ -60,6 +60,7 @@ t_operation	*join_operation_to_do(t_operation *op_a, t_operation *op_b)
 	i = 0;
 	to_do_a = ft_split(op_a->operation_to_do, ' ');
 	to_do_b = ft_split(op_b->operation_to_do, ' ');
+	ft_printf("%s %s\n", to_do_a[i], to_do_b[i]);
 	// while (to_do_a[i] || to_do_b[i])
 	// {
 	// 	ft_printf("{%s} {%s}", to_do_a[i], to_do_b[i]);
