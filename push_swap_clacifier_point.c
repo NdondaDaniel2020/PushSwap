@@ -37,20 +37,23 @@ t_operation	*join_operation_to_do(t_operation *op_a, t_operation *op_b)
 	op = (t_operation *)malloc(sizeof(t_operation));
 	op->value = 0;
 	op->operation_to_do = NULL;
+	if (!op_a && !op_b)
+		return (NULL);
 	if (op_a->operation_to_do && !op_b->operation_to_do)
 	{
 		op->value = op_a->value;
-		op->operation_to_do = op_a->operation_to_do;
+		op->operation_to_do = ft_strdup(op_a->operation_to_do);
 	}
 	else if (op_b->operation_to_do && !op_a->operation_to_do)
 	{
 		op->value = op_b->value;
-		op->operation_to_do = op_b->operation_to_do;
+		op->operation_to_do = ft_strdup(op_b->operation_to_do);
 	}
 	else if (op_a->operation_to_do && op_b->operation_to_do)
 	{
 		op->value = op_b->value;
-		op->operation_to_do = op_b->operation_to_do;
+		op->operation_to_do = join_string_operation_element(
+			op_a->operation_to_do, op_b->operation_to_do);
 	}
 	return (op);
 }
@@ -132,7 +135,7 @@ void	get_the_shortest_operation(t_data *data)
 	t_data		*new_data;
 	t_operation	*operation_to_do_a;
 	t_operation	*operation_to_do_b;
-	// t_operation	*join_op;
+	t_operation	*join_op;
 
 
 	aux = data->stack_a;
@@ -140,7 +143,7 @@ void	get_the_shortest_operation(t_data *data)
 	{
 		new_data = cpy_data(data);
 
-	
+
 		
 		operation_to_do_a = count_operation_to_a(*(int *)aux->content, new_data);
 
@@ -151,14 +154,15 @@ void	get_the_shortest_operation(t_data *data)
 		ft_printf("{{%s}}\n", join_op->operation_to_do);
 
 
+
 		free_operation(operation_to_do_a);
 		free_operation(operation_to_do_b);
-		// free_operation(join_op);
+		free_operation(join_op);
 
 		aux = aux->next;
 		clean_stack(new_data);
 		free(new_data);
-	}	
+	}
 }
 
 void	clacifier_point(t_data *data)
