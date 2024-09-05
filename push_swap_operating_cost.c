@@ -85,6 +85,28 @@ int	get_predecessor(t_list *list, int value)
 
 void	free_operation(t_operation *op)
 {
-	free(op->operation_to_do);
+	if (op->operation_to_do)
+		free(op->operation_to_do);
 	free(op);
+}
+
+t_operation	*join_each_element(t_operation *op, char *new_op)
+{
+	if (!op->operation_to_do)
+	{
+		op->operation_to_do = (char *)malloc(ft_strlen(new_op) + 1);
+		if (!op->operation_to_do)
+			return (op);
+		op->value++;
+		ft_strlcpy(op->operation_to_do, new_op, ft_strlen(new_op) + 1);
+		return (op);
+	}
+	else
+	{
+		op->operation_to_do = ft_strjoin_free(op->operation_to_do, new_op);
+		if (!op->operation_to_do)
+			return (op);
+		op->value++;
+		return (op);
+	}
 }

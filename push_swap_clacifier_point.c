@@ -30,90 +30,29 @@ void	lstls(t_list *list)
 	}
 }
 
-t_operation	*join_operation(t_operation *op, char *new_op)
-{
-	if (!op->operation_to_do)
-	{
-		op->operation_to_do = (char *)malloc(ft_strlen(new_op) + 1);
-		if (!op->operation_to_do)
-			return (op);
-		op->value++;
-		ft_strlcpy(op->operation_to_do, new_op, ft_strlen(new_op) + 1);
-		return (op);
-	}
-	else
-	{
-		op->operation_to_do = ft_strjoin_free(op->operation_to_do, new_op);
-		if (!op->operation_to_do)
-			return (op);
-		op->value++;
-		return (op);
-	}
-}
-
 t_operation	*join_operation_to_do(t_operation *op_a, t_operation *op_b)
 {
-	int		i;
-	char	**to_do_a;
-	char	**to_do_b;
-	char	*ope_join;
+	t_operation	*op;
 
-	i = 0;
-	to_do_a = NULL;
-	to_do_b = NULL;
-	ope_join = (char *)ft_calloc(1, sizeof(char));
-	if (op_a->operation_to_do)
-		to_do_a = ft_split(op_a->operation_to_do, ' ');
-	if (op_b->operation_to_do)
-		to_do_b = ft_split(op_b->operation_to_do, ' ');
-
-	if (op_a->operation_to_do && op_b->operation_to_do)
+	op = (t_operation *)malloc(sizeof(t_operation));
+	op->value = 0;
+	op->operation_to_do = NULL;
+	if (op_a->operation_to_do && !op_b->operation_to_do)
 	{
-		while (to_do_a[i] || to_do_b[i])
-		{
-			ft_printf("{%s} {%s}", to_do_a[i], to_do_b[i]);
-
-			if (!ft_strncmp(to_do_a[i], "sa", 2) && !ft_strncmp(to_do_b[i], "sb", 2))
-				ope_join = ft_strjoin_free(ope_join, " ss ");
-			else if (!ft_strncmp(to_do_a[i], "ra", 2) && !ft_strncmp(to_do_b[i], "rb", 2))
-				ope_join = ft_strjoin_free(ope_join, " rr ");
-			else if (!ft_strncmp(to_do_a[i], "rra", 3) && !ft_strncmp(to_do_b[i], "rrb", 3))
-				ope_join = ft_strjoin_free(ope_join, " rrr ");
-			else if (to_do_a[i] && to_do_b[i])
-			{
-				ope_join = ft_strjoin_free(ope_join, " ");
-				ope_join = ft_strjoin_free(ope_join, to_do_a[i]);
-				ope_join = ft_strjoin_free(ope_join, " ");
-				ope_join = ft_strjoin_free(ope_join, to_do_b[i]);
-				ope_join = ft_strjoin_free(ope_join, " ");
-			}
-			else if (to_do_a[i] && !to_do_b[i])
-			{
-				ope_join = ft_strjoin_free(ope_join, " ");
-				ope_join = ft_strjoin_free(ope_join, to_do_a[i]);
-				ope_join = ft_strjoin_free(ope_join, " ");
-			}
-			else if (!to_do_a[i] && to_do_b[i])
-			{
-				ope_join = ft_strjoin_free(ope_join, " ");
-				ope_join = ft_strjoin_free(ope_join, to_do_b[i]);
-				ope_join = ft_strjoin_free(ope_join, " ");
-			}
-			i++;
-		}
+		op->value = op_a->value;
+		op->operation_to_do = op_a->operation_to_do;
 	}
-
-	ft_printf("%s\n", ope_join);
-
-	// ft_printf("%s %s\n", to_do_a[i], to_do_b[i]);
-	// while (to_do_a[i] || to_do_b[i])
-	// {
-	// 	ft_printf("{%s} {%s}", to_do_a[i], to_do_b[i]);
-	// 	i++;
-	// }
-	// op_b->operation_to_do;
-	// free_operation(operation_to_do_a);
-	return (op_a);
+	else if (op_b->operation_to_do && !op_a->operation_to_do)
+	{
+		op->value = op_b->value;
+		op->operation_to_do = op_b->operation_to_do;
+	}
+	else if (op_a->operation_to_do && op_b->operation_to_do)
+	{
+		op->value = op_b->value;
+		op->operation_to_do = op_b->operation_to_do;
+	}
+	return (op);
 }
 
 t_operation	*count_operation_to_b(int value, t_data *data)
@@ -134,19 +73,19 @@ t_operation	*count_operation_to_b(int value, t_data *data)
 		if (value == *(int *)data->stack_b->next->content)
 		{
 			sb(data, 0);
-			op = join_operation(op, " sb ");
+			op = join_each_element(op, " sb ");
 		}
 		else if (pos > (size / 2))
 		{
 			rrb(data, 0);
-			op = join_operation(op, " rrb ");
+			op = join_each_element(op, " rrb ");
 		}
 		else if (value != *(int *)data->stack_b->content
 			&& value != *(int *)data->stack_b->next->content
 			&& pos <= (size / 2))
 		{
 			rb(data, 0);
-			op = join_operation(op, " rb ");
+			op = join_each_element(op, " rb ");
 		}
 	}
 	return (op);
@@ -168,19 +107,19 @@ t_operation	*count_operation_to_a(int value, t_data *data)
 		if (value == *(int *)data->stack_a->next->content)
 		{
 			sa(data, 0);
-			op = join_operation(op, " sa ");
+			op = join_each_element(op, " sa ");
 		}
 		else if (pos > (size / 2))
 		{
 			rra(data, 0);
-			op = join_operation(op, " rra ");
+			op = join_each_element(op, " rra ");
 		}
 		else if (value != *(int *)data->stack_a->content
 			&& value != *(int *)data->stack_a->next->content
 			&& pos <= (size / 2))
 		{
 			ra(data, 0);
-			op = join_operation(op, " ra ");
+			op = join_each_element(op, " ra ");
 		}
 	}
 	return (op);
@@ -193,6 +132,7 @@ void	get_the_shortest_operation(t_data *data)
 	t_data		*new_data;
 	t_operation	*operation_to_do_a;
 	t_operation	*operation_to_do_b;
+	// t_operation	*join_op;
 
 
 	aux = data->stack_a;
@@ -207,12 +147,13 @@ void	get_the_shortest_operation(t_data *data)
 		value = get_predecessor(new_data->stack_b, *(int *)aux->content);
 		operation_to_do_b = count_operation_to_b(value, new_data);
 
+		join_op = join_operation_to_do(operation_to_do_a, operation_to_do_b);
+		ft_printf("{{%s}}\n", join_op->operation_to_do);
 
-		join_operation_to_do(operation_to_do_a, operation_to_do_b);
 
 		free_operation(operation_to_do_a);
 		free_operation(operation_to_do_b);
-
+		// free_operation(join_op);
 
 		aux = aux->next;
 		clean_stack(new_data);
