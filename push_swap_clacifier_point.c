@@ -173,6 +173,10 @@ void	clacifier_point(t_data *data)
 	if (op->operation_to_do)
 		do_operation(data, op->operation_to_do);
 	pb(data);
+	
+	ft_printf("\n//////////////////////////////////////////\n");
+	ft_printf("\n depois do pb verifica se a pilha ba esta orde nada de forma descrescente se nao aplicar rb\n");
+	ft_printf("\n//////////////////////////////////////////\n");
 	// size = ft_lstsize(data->stack_a);
 	// while (size > 3)
 	// {
