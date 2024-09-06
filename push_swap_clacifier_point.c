@@ -30,145 +30,130 @@ void	lstls(t_list *list)
 	}
 }
 
-t_operation	*join_operation_to_do(t_operation *op_a, t_operation *op_b)
+static void	free_all_operation(t_operation *op_a, t_operation *op_b)
 {
-	t_operation	*op;
-
-	op = (t_operation *)malloc(sizeof(t_operation));
-	op->value = 0;
-	op->operation_to_do = NULL;
-	if (!op_a && !op_b)
-		return (NULL);
-	if (op_a->operation_to_do && !op_b->operation_to_do)
-	{
-		op->value = op_a->value;
-		op->operation_to_do = ft_strdup(op_a->operation_to_do);
-	}
-	else if (op_b->operation_to_do && !op_a->operation_to_do)
-	{
-		op->value = op_b->value;
-		op->operation_to_do = ft_strdup(op_b->operation_to_do);
-	}
-	else if (op_a->operation_to_do && op_b->operation_to_do)
-	{
-		op->value = op_b->value;
-		op->operation_to_do = join_string_operation_element(
-			op_a->operation_to_do, op_b->operation_to_do);
-	}
-	return (op);
+	free_operation(op_a);
+	free_operation(op_b);
 }
 
-t_operation	*count_operation_to_b(int value, t_data *data)
-{
-	int			pos;
-	int			size;
-	t_operation	*op;
-
-	op = (t_operation *)malloc(sizeof(t_operation));
-	op->value = 0;
-	op->operation_to_do = NULL;
-	if (value == -1)
-		return (op);
-	size = ft_lstsize(data->stack_b);
-	pos = get_pos_in_stack(value, data->stack_b);
-	while (value != *(int *)data->stack_b->content)
-	{
-		if (value == *(int *)data->stack_b->next->content)
-		{
-			sb(data, 0);
-			op = join_each_element(op, " sb ");
-		}
-		else if (pos > (size / 2))
-		{
-			rrb(data, 0);
-			op = join_each_element(op, " rrb ");
-		}
-		else if (value != *(int *)data->stack_b->content
-			&& value != *(int *)data->stack_b->next->content
-			&& pos <= (size / 2))
-		{
-			rb(data, 0);
-			op = join_each_element(op, " rb ");
-		}
-	}
-	return (op);
-}
-
-t_operation	*count_operation_to_a(int value, t_data *data)
-{
-	int			pos;
-	int			size;
-	t_operation	*op;
-
-	op = (t_operation *)malloc(sizeof(t_operation));
-	op->value = 0;
-	op->operation_to_do = NULL;
-	size = ft_lstsize(data->stack_a);
-	pos = get_pos_in_stack(value, data->stack_a);
-	while (value != *(int *)data->stack_a->content)
-	{
-		if (value == *(int *)data->stack_a->next->content)
-		{
-			sa(data, 0);
-			op = join_each_element(op, " sa ");
-		}
-		else if (pos > (size / 2))
-		{
-			rra(data, 0);
-			op = join_each_element(op, " rra ");
-		}
-		else if (value != *(int *)data->stack_a->content
-			&& value != *(int *)data->stack_a->next->content
-			&& pos <= (size / 2))
-		{
-			ra(data, 0);
-			op = join_each_element(op, " ra ");
-		}
-	}
-	return (op);
-}
-
-void	get_the_shortest_operation(t_data *data)
+static t_operation	*min_oper(t_operation *op, t_data *data, t_list *aux, int i)
 {
 	int			value;
-	t_list		*aux;
-	t_data		*new_data;
+	t_operation	*join_op;
 	t_operation	*operation_to_do_a;
 	t_operation	*operation_to_do_b;
-	t_operation	*join_op;
 
+	operation_to_do_a = count_operation_to_a(*(int *)aux->content, data);
+	value = get_predecessor(data->stack_b, *(int *)aux->content);
+	if (value != *(int *)aux->content)
+		operation_to_do_b = count_operation_to_b(value, data);
+	else
+		operation_to_do_b = init_operation();
+	join_op = join_operation_to_do(operation_to_do_a, operation_to_do_b);
+	if (i == 0 || (join_op && join_op->value < op->value))
+	{
+		op = join_op;
+		free_all_operation(operation_to_do_a, operation_to_do_b);
+		return (op);
+	}
+	else
+	{
+		free_all_operation(operation_to_do_a, operation_to_do_b);
+		free_operation(join_op);
+		return (op);
+	}
+}
 
+t_operation	*get_the_shortest_operation(t_data *data)
+{
+	int			i;
+	t_list		*aux;
+	t_data		*new_data;
+	t_operation	*min_op;
+
+	i = 0;
 	aux = data->stack_a;
 	while (aux)
 	{
 		new_data = cpy_data(data);
-
-
-		
-		operation_to_do_a = count_operation_to_a(*(int *)aux->content, new_data);
-
-		value = get_predecessor(new_data->stack_b, *(int *)aux->content);
-		operation_to_do_b = count_operation_to_b(value, new_data);
-
-		join_op = join_operation_to_do(operation_to_do_a, operation_to_do_b);
-		ft_printf("{{%s}}\n", join_op->operation_to_do);
-
-
-
-		free_operation(operation_to_do_a);
-		free_operation(operation_to_do_b);
-		free_operation(join_op);
-
+		min_op = min_oper(min_op, new_data, aux, i);
 		aux = aux->next;
 		clean_stack(new_data);
 		free(new_data);
+		i++;
 	}
+	return (min_op);
+}
+
+static	void	case_comand(t_data *data, char *comand)
+{
+	if (ft_strncmp(comand, "sa", ft_strlen(comand)) == 0)
+		sa(data, 1);
+	if (ft_strncmp(comand, "sb", ft_strlen(comand)) == 0)
+		sb(data, 1);
+	if (ft_strncmp(comand, "ss", ft_strlen(comand)) == 0)
+		ss(data);
+	if (ft_strncmp(comand, "pa", ft_strlen(comand)) == 0)
+		pa(data);
+	if (ft_strncmp(comand, "pb", ft_strlen(comand)) == 0)
+		pb(data);
+	if (ft_strncmp(comand, "ra", ft_strlen(comand)) == 0)
+		ra(data, 1);
+	if (ft_strncmp(comand, "rb", ft_strlen(comand)) == 0)
+		rb(data, 1);
+	if (ft_strncmp(comand, "rr", ft_strlen(comand)) == 0)
+		rr(data);
+	if (ft_strncmp(comand, "rra", ft_strlen(comand)) == 0)
+		rra(data, 1);
+	if (ft_strncmp(comand, "rrb", ft_strlen(comand)) == 0)
+		rrb(data, 1);
+	if (ft_strncmp(comand, "rrr", ft_strlen(comand)) == 0)
+		rrr(data);
+}
+
+void	do_operation(t_data *data, char *comand)
+{
+	int		i;
+	char	**split_comand;
+
+	i = 0;
+	split_comand = ft_split(comand, ' ');
+	while (split_comand[i])
+	{
+		case_comand(data, split_comand[i]);
+		i++;
+	}
+	free_matrix(split_comand);
 }
 
 void	clacifier_point(t_data *data)
 {
+	// int			size;
+	t_operation	*op;
+
 	pb(data);
 	pb(data);
 
-	get_the_shortest_operation(data);
+	lstls(data->stack_a);
+	lstls(data->stack_b);
+	
+	op = get_the_shortest_operation(data);
+	ft_printf("{{%s} %i }\n", op->operation_to_do, op->value);
+	do_operation(data, op->operation_to_do);
+	pb(data);
+
+	ft_printf("\n//////////////////////////////////////////\n");
+	lstls(data->stack_a);
+	lstls(data->stack_b);
+	// size = ft_lstsize(data->stack_a);
+	// while (size > 3)
+	// {
+	// 	size = ft_lstsize(data->stack_a);
+
+	// 	op = get_the_shortest_operation(data);
+	// 	ft_printf("{{%s} %i }\n", op->operation_to_do, op->value);
+	// 	do_operation(data, op->operation_to_do);
+	// 	pb(data);
+	// }
+	free_operation(op);
 }

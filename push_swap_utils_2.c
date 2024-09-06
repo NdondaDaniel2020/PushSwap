@@ -87,3 +87,14 @@ int	is_in_order(t_list *list)
 	}
 	return (1);
 }
+
+int	is_in_order_des(t_list *list)
+{
+	while (list->next)
+	{
+		if (*(int *)list->content < *(int *)list->next->content)
+			return (0);
+		list = list->next;
+	}
+	return (1);
+}

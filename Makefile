@@ -14,15 +14,18 @@ CC = cc
 RUN = ./push_swap
 NAME = $(RUN).a
 FILES = push_swap.c \
-		push_swap_utils_1.c \
-		push_swap_utils_2.c \
-		push_swap_utils_3.c \
+		push_swap_case.c \
 		push_swap_clacifier_1.c \
 		push_swap_clacifier_2.c \
 		push_swap_clacifier_3.c \
 		push_swap_clacifier_point.c \
-		push_swap_operating_cost.c \
-		push_swap_case.c
+		push_swap_count_operation.c \
+		push_swap_join_operation.c \
+		push_swap_operating_cost_1.c \
+		push_swap_operating_cost_2.c \
+		push_swap_utils_1.c \
+		push_swap_utils_2.c \
+		push_swap_utils_3.c
 
 OBJ = $(FILES:.c=.o)
 FLAGS = -Wall -Wextra -Werror
