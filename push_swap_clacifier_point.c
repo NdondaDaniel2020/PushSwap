@@ -134,17 +134,45 @@ void	clacifier_point(t_data *data)
 	pb(data);
 	pb(data);
 
+	ft_printf("\n//////////////////////////////////////////\n");
 	lstls(data->stack_a);
 	lstls(data->stack_b);
 	
 	op = get_the_shortest_operation(data);
 	ft_printf("{{%s} %i }\n", op->operation_to_do, op->value);
-	do_operation(data, op->operation_to_do);
+	if (op->operation_to_do)
+		do_operation(data, op->operation_to_do);
 	pb(data);
 
 	ft_printf("\n//////////////////////////////////////////\n");
 	lstls(data->stack_a);
 	lstls(data->stack_b);
+
+	op = get_the_shortest_operation(data);
+	ft_printf("{{%s} %i }\n", op->operation_to_do, op->value);
+	if (op->operation_to_do)
+		do_operation(data, op->operation_to_do);
+	pb(data);
+
+	ft_printf("\n//////////////////////////////////////////\n");
+	lstls(data->stack_a);
+	lstls(data->stack_b);
+
+	op = get_the_shortest_operation(data);
+	ft_printf("{{%s} %i }\n", op->operation_to_do, op->value);
+	if (op->operation_to_do)
+		do_operation(data, op->operation_to_do);
+	pb(data);
+
+	ft_printf("\n//////////////////////////////////////////\n");
+	lstls(data->stack_a);
+	lstls(data->stack_b);
+
+	op = get_the_shortest_operation(data);
+	ft_printf("{{%s} %i }\n", op->operation_to_do, op->value);
+	if (op->operation_to_do)
+		do_operation(data, op->operation_to_do);
+	pb(data);
 	// size = ft_lstsize(data->stack_a);
 	// while (size > 3)
 	// {
