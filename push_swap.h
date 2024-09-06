@@ -65,19 +65,27 @@ void		error(t_data *data);
 
 void		check_size_number(t_data *data, char *num_in_char);
 void		check_is_number(t_data *data, char *num_in_char);
-
 void		free_operation(t_operation *op);
 
-int			*value_to_pointer(int value);
 int			is_in_order(t_list *list);
+int			opcmp(char *s1, char *s2);
+int			is_in_order_des(t_list *list);
+int			*value_to_pointer(int value);
 
 int			get_predecessor(t_list *list, int value);
 int			get_pos_in_stack(int value, t_list *stack);
+
+char		*ft_charjoin_free(char *s1, char c, int l2);
+char		*join_string_operation_element(char *s_a, char *s_b);
 
 t_data		*cpy_data(t_data *data);
 
 t_size		stack_max_and_min_value(t_list *list);
 
+t_operation	*init_operation(void);
+t_operation	*count_operation_to_b(int value, t_data *data);
+t_operation	*count_operation_to_a(int value, t_data *data);
 t_operation	*join_each_element(t_operation *op, char *new_op);
+t_operation	*join_operation_to_do(t_operation *op_a, t_operation *op_b);
 
 #endif

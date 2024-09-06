@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_operating_cost.c                         :+:      :+:    :+:   */
+/*   push_swap_operating_cost_1.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmatondo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -67,7 +67,7 @@ int	get_predecessor(t_list *list, int value)
 	if (!list)
 		return (-1);
 	i = 0;
-	pos = -1;
+	pos = value;
 	pressed = 0;
 	while (list)
 	{
