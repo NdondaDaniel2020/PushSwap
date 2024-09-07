@@ -72,12 +72,12 @@ void		error(t_data *data);
 void		check_size_number(t_data *data, char *num_in_char);
 void		check_is_number(t_data *data, char *num_in_char);
 void		free_operation(t_operation *op);
+void		free_all_operation(t_operation *op_a, t_operation *op_b);
 
 int			is_in_order(t_list *list);
 int			opcmp(char *s1, char *s2);
 int			is_in_order_des(t_list *list);
 int			*value_to_pointer(int value);
-
 int			get_pos_in_stack(int value, t_list *stack);
 
 char		*ft_charjoin_free(char *s1, char c, int l2);

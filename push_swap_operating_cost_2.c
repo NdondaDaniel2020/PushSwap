@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_clacifier_point.c                        :+:      :+:    :+:   */
+/*   push_swap_operating_cost_2.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmatondo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -63,4 +63,10 @@ char	*ft_charjoin_free(char *s1, char c, int l2)
 	join[i] = '\0';
 	free(s1);
 	return (join);
+}
+
+void	free_all_operation(t_operation *op_a, t_operation *op_b)
+{
+	free_operation(op_a);
+	free_operation(op_b);
 }
