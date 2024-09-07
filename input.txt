@@ -1,39 +1,56 @@
+void	clacifier_point(t_data *data)
+{
+	int			size;
+	t_operation	*op;
 
-(6)
-a {{ ra  sa } 2 }
-b {{ sb } 1 }
-j {{ ss sa} 2 }
+	pb(data);
+	pb(data);
+	size = ft_lstsize(data->stack_a);
+	while (size > 4)
+	{
+		size = ft_lstsize(data->stack_a);
+		op = get_the_shortest_operation_a_to_b(data);
+		if (op->operation_to_do)
+			do_operation(data, op->operation_to_do);
+		pb(data);
+		free_operation(op);
+	}
+	case_3(data);
 
+	ft_printf("\n\n\n");
+	size = ft_lstsize(data->stack_b);
+	while (size > 1)
+	{
+		ft_printf("//////////////////////////////////////////////////////////\n");
+		lstls(data->stack_a);
+		lstls(data->stack_b);
+		size = ft_lstsize(data->stack_b);
+		op = get_the_shortest_operation_b_to_a(data);
+		if (op->operation_to_do)
+			do_operation(data, op->operation_to_do);
+		pa(data);
+		free_operation(op);
+	}
+	while (is_in_order(data->stack_a) == 0)
+		rra(data, 1);
+	lstls(data->stack_a);
+	lstls(data->stack_b);
+}
 
-(9)
+void	lstls(t_list *list)
+{
+	int	i;
 
-
-j {{ ss rra rra} 3 }
-
-(8)
-a {{ rra } 1 }
-b {{ sb } 1 }
-j {{ rrr} 1 }
-
-(3)
-a {{ sa } 1 }
-b {{ rrb } 1 }
-j {{ ss} 1 }
-
-
-(9)
-a {{ ra  sa } 2 }
-b {{ sb } 1 }
-j {{ ss sa} 2 }
-
-
-(4)
-a {{ rra  rra } 2 }
-b {{ rrb } 1 }
-j {{ rrr rra} 2 }
-
-
-(8)
-a {{ rra } 1 }
-b {{ sb } 1 }
-j {{ rrr} 1 }
+	i = 0;
+	if (list)
+	{
+		ft_printf("Lista\n");
+		while (list)
+		{
+			ft_printf("%i - %i\n", i, *(int *)list->content);
+			list = list->next;
+			i++;
+		}
+		ft_printf("\n");
+	}
+}

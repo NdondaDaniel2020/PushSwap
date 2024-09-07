@@ -12,24 +12,6 @@
 
 #include "push_swap.h"
 
-void	lstls(t_list *list)
-{
-	int	i;
-
-	i = 0;
-	if (list)
-	{
-		ft_printf("Lista\n");
-		while (list)
-		{
-			ft_printf("%i - %i\n", i, *(int *)list->content);
-			list = list->next;
-			i++;
-		}
-		ft_printf("\n");
-	}
-}
-
 static	void	case_comand(t_data *data, char *comand)
 {
 	if (ft_strncmp(comand, "sa", ft_strlen(comand)) == 0)
@@ -73,15 +55,12 @@ void	do_operation(t_data *data, char *comand)
 
 void	clacifier_point(t_data *data)
 {
-	int			size;
 	t_operation	*op;
 
 	pb(data);
 	pb(data);
-	size = ft_lstsize(data->stack_a);
-	while (size > 4)
+	while (ft_lstsize(data->stack_a) > 3)
 	{
-		size = ft_lstsize(data->stack_a);
 		op = get_the_shortest_operation_a_to_b(data);
 		if (op->operation_to_do)
 			do_operation(data, op->operation_to_do);
@@ -89,6 +68,14 @@ void	clacifier_point(t_data *data)
 		free_operation(op);
 	}
 	case_3(data);
-	lstls(data->stack_a);
-	lstls(data->stack_b);
+	while (ft_lstsize(data->stack_b) > 0)
+	{
+		op = get_the_shortest_operation_b_to_a(data);
+		if (op->operation_to_do)
+			do_operation(data, op->operation_to_do);
+		pa(data);
+		free_operation(op);
+	}
+	while (is_in_order(data->stack_a) == 0)
+		rra(data, 1);
 }
