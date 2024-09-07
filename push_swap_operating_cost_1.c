@@ -56,31 +56,33 @@ int	get_pos_in_stack(int value, t_list *stack)
 	return (-1);
 }
 
-int	get_predecessor(t_list *list, int value)
+t_bool_num	*get_predecessor(t_list *list, int value)
 {
-	int	i;
-	int	sum;
-	int	pos;
-	int	pressed;
+	int			i;
+	int			sum;
+	int			pressed;
+	t_bool_num	*valid_value;
 
-	(void)value;
+	valid_value = (t_bool_num *)malloc(sizeof(t_bool_num));
+	valid_value->valid = 0;
+	valid_value->num = 0;
 	if (!list)
-		return (-1);
+		return (valid_value);
 	i = 0;
-	pos = value;
-	pressed = 0;
+	pressed = stack_max_and_min_value(list).max;
 	while (list)
 	{
 		sum = value - *(int *)list->content;
 		if (sum > 0 && (sum < pressed || i == 0))
 		{
-			pos = *(int *)list->content;
+			valid_value->valid = 1;
+			valid_value->num = *(int *)list->content;
 			pressed = sum;
 		}
 		list = list->next;
 		i++;
 	}
-	return (pos);
+	return (valid_value);
 }
 
 void	free_operation(t_operation *op)

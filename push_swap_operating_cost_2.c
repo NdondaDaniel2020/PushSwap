@@ -28,20 +28,15 @@ int	opcmp(char *s1, char *s2)
 {
 	int	len_1;
 	int	len_2;
-	int	menor;
 
 	len_1 = ft_strlen(s1);
 	len_2 = ft_strlen(s2);
 	if (len_1 != len_2)
-		return (-1);
-	if (len_1 < len_2)
-		menor = len_1;
-	else
-		menor = len_1;
-	if (ft_strncmp(s1, s2, menor - 1) == 0)
+		return (0);
+	if (ft_strncmp(s1, s2, len_1 - 1) == 0)
 		return (1);
 	else
-		return (-1);
+		return (0);
 }
 
 char	*ft_charjoin_free(char *s1, char c, int l2)

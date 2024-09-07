@@ -52,7 +52,7 @@ void	rrb(t_data *data, int i)
 
 void	rrr(t_data *data)
 {
-	ra(data, 0);
-	rb(data, 0);
+	rra(data, 0);
+	rrb(data, 0);
 	ft_printf("rrr\n");
 }

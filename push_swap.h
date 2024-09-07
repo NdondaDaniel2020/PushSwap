@@ -28,6 +28,12 @@ typedef struct s_size
 	int	max;
 }		t_size;
 
+typedef struct s_bool_num
+{
+	int	valid;
+	int	num;
+}		t_bool_num;
+
 typedef struct s_operation
 {
 	int		value;
@@ -72,7 +78,6 @@ int			opcmp(char *s1, char *s2);
 int			is_in_order_des(t_list *list);
 int			*value_to_pointer(int value);
 
-int			get_predecessor(t_list *list, int value);
 int			get_pos_in_stack(int value, t_list *stack);
 
 char		*ft_charjoin_free(char *s1, char c, int l2);
@@ -81,6 +86,8 @@ char		*join_string_operation_element(char *s_a, char *s_b);
 t_data		*cpy_data(t_data *data);
 
 t_size		stack_max_and_min_value(t_list *list);
+
+t_bool_num	*get_predecessor(t_list *list, int value);
 
 t_operation	*init_operation(void);
 t_operation	*count_operation_to_b(int value, t_data *data);
