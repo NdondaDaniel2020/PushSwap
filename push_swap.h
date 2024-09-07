@@ -15,6 +15,7 @@
 
 # include "libft/libft.h"
 # include <fcntl.h>
+# include <limits.h>
 
 typedef struct s_data
 {
@@ -92,6 +93,8 @@ t_bool_num	*get_predecessor(t_list *list, int value);
 t_operation	*init_operation(void);
 t_operation	*count_operation_to_b(int value, t_data *data);
 t_operation	*count_operation_to_a(int value, t_data *data);
+t_operation	*get_the_shortest_operation_a_to_b(t_data *data);
+t_operation	*get_the_shortest_operation_b_to_a(t_data *data);
 t_operation	*join_each_element(t_operation *op, char *new_op);
 t_operation	*join_operation_to_do(t_operation *op_a, t_operation *op_b);
 
