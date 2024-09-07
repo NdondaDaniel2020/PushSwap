@@ -38,17 +38,18 @@ static void	free_all_operation(t_operation *op_a, t_operation *op_b)
 
 static t_operation	*min_oper(t_operation *op, t_data *data, t_list *aux, int i)
 {
-	int			value;
+	t_bool_num	*value;
 	t_operation	*join_op;
 	t_operation	*operation_to_do_a;
 	t_operation	*operation_to_do_b;
 
 	operation_to_do_a = count_operation_to_a(*(int *)aux->content, data);
 	value = get_predecessor(data->stack_b, *(int *)aux->content);
-	if (value != *(int *)aux->content)
-		operation_to_do_b = count_operation_to_b(value, data);
+	if (value->valid)
+		operation_to_do_b = count_operation_to_b(value->num, data);
 	else
 		operation_to_do_b = init_operation();
+	free(value);
 	join_op = join_operation_to_do(operation_to_do_a, operation_to_do_b);
 	if (i == 0 || (join_op && join_op->value < op->value))
 	{
@@ -128,65 +129,22 @@ void	do_operation(t_data *data, char *comand)
 
 void	clacifier_point(t_data *data)
 {
-	// int			size;
+	int			size;
 	t_operation	*op;
 
 	pb(data);
 	pb(data);
-
-	ft_printf("\n//////////////////////////////////////////\n");
+	size = ft_lstsize(data->stack_a);
+	while (size > 4)
+	{
+		size = ft_lstsize(data->stack_a);
+		op = get_the_shortest_operation(data);
+		if (op->operation_to_do)
+			do_operation(data, op->operation_to_do);
+		pb(data);
+		free_operation(op);
+	}
+	case_3(data);
 	lstls(data->stack_a);
 	lstls(data->stack_b);
-	
-	op = get_the_shortest_operation(data);
-	ft_printf("{{%s} %i }\n", op->operation_to_do, op->value);
-	if (op->operation_to_do)
-		do_operation(data, op->operation_to_do);
-	pb(data);
-
-	ft_printf("\n//////////////////////////////////////////\n");
-	lstls(data->stack_a);
-	lstls(data->stack_b);
-
-	op = get_the_shortest_operation(data);
-	ft_printf("{{%s} %i }\n", op->operation_to_do, op->value);
-	if (op->operation_to_do)
-		do_operation(data, op->operation_to_do);
-	pb(data);
-
-	ft_printf("\n//////////////////////////////////////////\n");
-	lstls(data->stack_a);
-	lstls(data->stack_b);
-
-	op = get_the_shortest_operation(data);
-	ft_printf("{{%s} %i }\n", op->operation_to_do, op->value);
-	if (op->operation_to_do)
-		do_operation(data, op->operation_to_do);
-	pb(data);
-
-	ft_printf("\n//////////////////////////////////////////\n");
-	lstls(data->stack_a);
-	lstls(data->stack_b);
-
-	op = get_the_shortest_operation(data);
-	ft_printf("{{%s} %i }\n", op->operation_to_do, op->value);
-	if (op->operation_to_do)
-		do_operation(data, op->operation_to_do);
-	pb(data);
-	
-	ft_printf("\n//////////////////////////////////////////\n");
-	ft_printf("\n depois do pb verifica se a pilha ba esta orde nada de forma descrescente se nao aplicar rb\n");
-	ft_printf("\n//////////////////////////////////////////\n");
-	
-	// size = ft_lstsize(data->stack_a);
-	// while (size > 3)
-	// {
-	// 	size = ft_lstsize(data->stack_a);
-
-	// 	op = get_the_shortest_operation(data);
-	// 	ft_printf("{{%s} %i }\n", op->operation_to_do, op->value);
-	// 	do_operation(data, op->operation_to_do);
-	// 	pb(data);
-	// }
-	free_operation(op);
 }

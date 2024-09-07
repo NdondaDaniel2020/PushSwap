@@ -1,0 +1,39 @@
+
+(6)
+a {{ ra  sa } 2 }
+b {{ sb } 1 }
+j {{ ss sa} 2 }
+
+
+(9)
+
+
+j {{ ss rra rra} 3 }
+
+(8)
+a {{ rra } 1 }
+b {{ sb } 1 }
+j {{ rrr} 1 }
+
+(3)
+a {{ sa } 1 }
+b {{ rrb } 1 }
+j {{ ss} 1 }
+
+
+(9)
+a {{ ra  sa } 2 }
+b {{ sb } 1 }
+j {{ ss sa} 2 }
+
+
+(4)
+a {{ rra  rra } 2 }
+b {{ rrb } 1 }
+j {{ rrr rra} 2 }
+
+
+(8)
+a {{ rra } 1 }
+b {{ sb } 1 }
+j {{ rrr} 1 }
