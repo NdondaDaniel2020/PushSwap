@@ -53,9 +53,10 @@ static t_operation	*min_oper(t_operation *op, t_data *data, t_list *aux, int i)
 	join_op = join_operation_to_do(operation_to_do_a, operation_to_do_b);
 	if (i == 0 || (join_op && join_op->value < op->value))
 	{
-		op = join_op;
+		if (op)
+			free_operation(op);
 		free_all_operation(operation_to_do_a, operation_to_do_b);
-		return (op);
+		return (join_op);
 	}
 	else
 	{
@@ -68,12 +69,17 @@ static t_operation	*min_oper(t_operation *op, t_data *data, t_list *aux, int i)
 t_operation	*get_the_shortest_operation(t_data *data)
 {
 	int			i;
+	int			max;
 	t_list		*aux;
 	t_data		*new_data;
 	t_operation	*min_op;
 
 	i = 0;
 	aux = data->stack_a;
+	min_op = init_operation();
+	max = stack_max_and_min_value(data->stack_a).max;
+	max += stack_max_and_min_value(data->stack_b).max;
+	min_op->value = max;
 	while (aux)
 	{
 		new_data = cpy_data(data);
@@ -85,6 +91,8 @@ t_operation	*get_the_shortest_operation(t_data *data)
 	}
 	return (min_op);
 }
+
+
 
 static	void	case_comand(t_data *data, char *comand)
 {
@@ -144,6 +152,7 @@ void	clacifier_point(t_data *data)
 		pb(data);
 		free_operation(op);
 	}
+	// free_operation(op);
 	case_3(data);
 	lstls(data->stack_a);
 	lstls(data->stack_b);
