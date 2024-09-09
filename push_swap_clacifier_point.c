@@ -71,6 +71,24 @@ void	do_operation(t_data *data, char *comand)
 	free_matrix(split_comand);
 }
 
+void	last_order_stack_b(t_data *data)
+{
+	int		pos;
+	int		size;
+	t_size	max_min;
+
+	size = ft_lstsize(data->stack_b);
+	max_min = stack_max_and_min_value(data->stack_b);
+	while (!is_in_order_des(data->stack_b))
+	{
+		pos = get_pos_in_stack(max_min.max, data->stack_b);
+		if (pos > (size / 2) - 1)
+			rrb(data, 1);
+		if (pos <= (size / 2) - 1)
+			rb(data, 1);
+	}
+}
+
 void	clacifier_point(t_data *data)
 {
 	t_operation	*op;
@@ -86,17 +104,16 @@ void	clacifier_point(t_data *data)
 		free_operation(op);
 	}
 	case_3(data);
-	
-	lstls(data->stack_a);
-	lstls(data->stack_b);
-	// while (ft_lstsize(data->stack_b) > 0)
-	// {
-	// 	op = get_the_shortest_operation_b_to_a(data);
-	// 	if (op->operation_to_do)
-	// 		do_operation(data, op->operation_to_do);
-	// 	pa(data);
-	// 	free_operation(op);
-	// }
-	// while (is_in_order(data->stack_a) == 0)
-	// 	rra(data, 1);
+	if (!is_in_order_des(data->stack_b))
+		last_order_stack_b(data);
+	while (ft_lstsize(data->stack_b) > 0)
+	{
+		op = get_the_shortest_operation_b_to_a(data);
+		if (op->operation_to_do)
+			do_operation(data, op->operation_to_do);
+		pa(data);
+		free_operation(op);
+	}
+	while (is_in_order(data->stack_a) == 0)
+		rra(data, 1);
 }
