@@ -11,8 +11,7 @@
 # **************************************************************************** #
 
 CC = cc
-RUN = ./push_swap
-NAME = $(RUN).a
+NAME = ./push_swap
 FILES = push_swap.c \
 		push_swap_case.c \
 		push_swap_clacifier_1.c \
@@ -23,6 +22,7 @@ FILES = push_swap.c \
 		push_swap_join_operation.c \
 		push_swap_operating_cost_1.c \
 		push_swap_operating_cost_2.c \
+		push_swap_send_max_to_top.c \
 		push_swap_shortest_operation.c \
 		push_swap_utils_1.c \
 		push_swap_utils_2.c \
@@ -40,14 +40,14 @@ all:	$(NAME)
 $(NAME):	$(LIBFT)
 	@$(CC) $(FLAGS) -c $(FILES)
 	@ar rc $(NAME) $(OBJ)
-	@$(CC) $(FLAGS) $(NAME) $(LIBFT) -o $(RUN)
+	@$(CC) $(FLAGS) $(OBJ) $(LIBFT) -o $(NAME)
 
 run: $(NAME)
 	@make clean
-	@$(CC) $(FLAGS) $(NAME) $(LIBFT) -o $(RUN)
+	@$(CC) $(FLAGS) $(NAME) $(LIBFT) -o $(NAME)
 
 e:
-	$(CC) $(FLAGS) $(FILES) $(LIBFT) -o $(RUN)
+	$(CC) $(FLAGS) $(FILES) $(LIBFT) -o $(NAME)
 
 r:
 	$(CC) $(RF) $(LIBFT) -o ./r
@@ -57,11 +57,11 @@ $(LIBFT):
 
 clean:
 	@/bin/rm -f $(OBJ)
+	make clean -C $(PLIBFT)
 
 fclean:	clean
 	@/bin/rm -f ./r
 	@/bin/rm -f $(NAME)
-	@/bin/rm -f $(RUN)
 	@make fclean -C $(PLIBFT)
 
 re:	fclean all
