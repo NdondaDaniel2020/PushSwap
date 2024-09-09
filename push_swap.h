@@ -91,6 +91,8 @@ t_size		stack_max_and_min_value(t_list *list);
 t_bool_num	*get_predecessor(t_list *list, int value);
 
 t_operation	*init_operation(void);
+t_operation	*send_max_to_the_top_of_b(t_data *data);
+t_operation	*send_min_to_the_top_of_a(t_data *data);
 t_operation	*count_operation_to_b(int value, t_data *data);
 t_operation	*count_operation_to_a(int value, t_data *data);
 t_operation	*get_the_shortest_operation_a_to_b(t_data *data);

@@ -30,29 +30,32 @@ void	lstls(t_list *list)
 	}
 }
 
+
+
+
 static	void	case_comand(t_data *data, char *comand)
 {
 	if (ft_strncmp(comand, "sa", ft_strlen(comand)) == 0)
 		sa(data, 1);
-	if (ft_strncmp(comand, "sb", ft_strlen(comand)) == 0)
+	else if (ft_strncmp(comand, "sb", ft_strlen(comand)) == 0)
 		sb(data, 1);
-	if (ft_strncmp(comand, "ss", ft_strlen(comand)) == 0)
+	else if (ft_strncmp(comand, "ss", ft_strlen(comand)) == 0)
 		ss(data);
-	if (ft_strncmp(comand, "pa", ft_strlen(comand)) == 0)
+	else if (ft_strncmp(comand, "pa", ft_strlen(comand)) == 0)
 		pa(data);
-	if (ft_strncmp(comand, "pb", ft_strlen(comand)) == 0)
+	else if (ft_strncmp(comand, "pb", ft_strlen(comand)) == 0)
 		pb(data);
-	if (ft_strncmp(comand, "ra", ft_strlen(comand)) == 0)
+	else if (ft_strncmp(comand, "ra", ft_strlen(comand)) == 0)
 		ra(data, 1);
-	if (ft_strncmp(comand, "rb", ft_strlen(comand)) == 0)
+	else if (ft_strncmp(comand, "rb", ft_strlen(comand)) == 0)
 		rb(data, 1);
-	if (ft_strncmp(comand, "rr", ft_strlen(comand)) == 0)
+	else if (ft_strncmp(comand, "rr", ft_strlen(comand)) == 0)
 		rr(data);
-	if (ft_strncmp(comand, "rra", ft_strlen(comand)) == 0)
+	else if (ft_strncmp(comand, "rra", ft_strlen(comand)) == 0)
 		rra(data, 1);
-	if (ft_strncmp(comand, "rrb", ft_strlen(comand)) == 0)
+	else if (ft_strncmp(comand, "rrb", ft_strlen(comand)) == 0)
 		rrb(data, 1);
-	if (ft_strncmp(comand, "rrr", ft_strlen(comand)) == 0)
+	else if (ft_strncmp(comand, "rrr", ft_strlen(comand)) == 0)
 		rrr(data);
 }
 
@@ -97,15 +100,34 @@ void	clacifier_point(t_data *data)
 	pb(data);
 	while (ft_lstsize(data->stack_a) > 3)
 	{
+		ft_printf("//////////////////////////////////\n");
+		ft_printf("A\n");
+		lstls(data->stack_a);
+		ft_printf("B\n");
+		lstls(data->stack_b);
 		op = get_the_shortest_operation_a_to_b(data);
 		if (op->operation_to_do)
 			do_operation(data, op->operation_to_do);
 		pb(data);
 		free_operation(op);
 	}
+
+	ft_printf("////////////// antes do ultimo ajuste ////////////////////\n");
+	ft_printf("A\n");
+	lstls(data->stack_a);
+	ft_printf("B\n");
+	lstls(data->stack_b);
+
 	case_3(data);
 	if (!is_in_order_des(data->stack_b))
 		last_order_stack_b(data);
+	
+	ft_printf("////////////// depois do ultimo ajuste ////////////////////\n");
+	ft_printf("A\n");
+	lstls(data->stack_a);
+	ft_printf("B\n");
+	lstls(data->stack_b);
+
 	while (ft_lstsize(data->stack_b) > 0)
 	{
 		op = get_the_shortest_operation_b_to_a(data);
@@ -116,4 +138,9 @@ void	clacifier_point(t_data *data)
 	}
 	while (is_in_order(data->stack_a) == 0)
 		rra(data, 1);
+	ft_printf("////////////// finale ////////////////////\n");
+	ft_printf("A\n");
+	lstls(data->stack_a);
+	ft_printf("B\n");
+	lstls(data->stack_b);
 }

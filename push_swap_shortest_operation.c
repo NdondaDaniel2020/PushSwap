@@ -21,10 +21,12 @@ static t_operation	*min_oper(t_operation *op, t_data *data, t_list *aux, int i)
 
 	operation_to_do_a = count_operation_to_a(*(int *)aux->content, data);
 	value = get_predecessor(data->stack_b, *(int *)aux->content);
+	
+	
 	if (value->valid)
 		operation_to_do_b = count_operation_to_b(value->num, data);
 	else
-		operation_to_do_b = init_operation();
+		operation_to_do_b = send_max_to_the_top_of_b(data);
 	free(value);
 	join_op = join_operation_to_do(operation_to_do_a, operation_to_do_b);
 	if (i == 0 || (join_op && join_op->value < op->value))
@@ -108,7 +110,7 @@ static t_operation	*get_oper(t_operation *op, t_data *data, t_list *aux, int i)
 	if (value->valid)
 		operation_to_do_a = count_operation_to_a(value->num, data);
 	else
-		operation_to_do_a = init_operation();
+		operation_to_do_a = init_operation(); // send_min_to_the_top_of_a(data);
 	free(value);
 	join_op = join_operation_to_do(operation_to_do_a, operation_to_do_b);
 	if (i == 0 || (join_op && join_op->value < op->value))
