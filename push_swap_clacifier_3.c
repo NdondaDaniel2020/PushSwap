@@ -27,7 +27,7 @@ void	rra(t_data *data, int i)
 		aux->next = NULL;
 		data->stack_a = last;
 		if (i == 1)
-			ft_printf("rra\n");
+			write(1, "rra\n", 4);
 	}
 }
 
@@ -46,7 +46,7 @@ void	rrb(t_data *data, int i)
 		aux->next = NULL;
 		data->stack_b = last;
 		if (i == 1)
-			ft_printf("rrb\n");
+			write(1, "rrb\n", 4);
 	}
 }
 
@@ -54,5 +54,5 @@ void	rrr(t_data *data)
 {
 	rra(data, 0);
 	rrb(data, 0);
-	ft_printf("rrr\n");
+	write(1, "rrr\n", 4);
 }

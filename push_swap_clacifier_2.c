@@ -27,7 +27,7 @@ void	ra(t_data *data, int i)
 		fir->next = NULL;
 		aux->next = fir;
 		if (i == 1)
-			ft_printf("ra\n");
+			write(1, "ra\n", 3);
 	}
 }
 
@@ -46,7 +46,7 @@ void	rb(t_data *data, int i)
 		fir->next = NULL;
 		aux->next = fir;
 		if (i == 1)
-			ft_printf("rb\n");
+			write(1, "rb\n", 3);
 	}
 }
 
@@ -54,5 +54,5 @@ void	rr(t_data *data)
 {
 	ra(data, 0);
 	rb(data, 0);
-	ft_printf("rr\n");
+	write(1, "rr\n", 3);
 }
