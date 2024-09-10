@@ -12,6 +12,10 @@
 
 CC = cc
 NAME = ./push_swap
+BONUS = ./checker_linux
+SRC = ./src/
+INCLUDE = ./include
+
 FILES = push_swap.c \
 		push_swap_case.c \
 		push_swap_clacifier_1.c \
@@ -28,7 +32,10 @@ FILES = push_swap.c \
 		push_swap_utils_2.c \
 		push_swap_utils_3.c
 
+SRC_FILES = $(addprefix $(SRC),$(FILES))
 OBJ = $(FILES:.c=.o)
+
+
 FLAGS = -Wall -Wextra -Werror
 PLIBFT = ./libft
 LIBFT = $(PLIBFT)/libft.a
@@ -38,9 +45,11 @@ RF = rascunho.c
 all:	$(NAME)
 
 $(NAME):	$(LIBFT)
-	@$(CC) $(FLAGS) -c $(FILES)
-	@ar rc $(NAME) $(OBJ)
-	@$(CC) $(FLAGS) $(OBJ) $(LIBFT) -o $(NAME)
+	@$(CC) $(FLAGS) -c $(SRC_FILES) -I$(INCLUDE)
+	@$(CC) $(FLAGS) $(OBJ) $(LIBFT) -I$(INCLUDE) -o $(NAME)
+
+
+# bonus:
 
 run: $(NAME)
 	@make clean
@@ -66,4 +75,4 @@ fclean:	clean
 
 re:	fclean all
 
-.PHONY: all run e r clean fclean re
+.PHONY: all bonus run e r clean fclean re

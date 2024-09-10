@@ -47,7 +47,9 @@ int	main(int ac, char **av)
 	{
 		init_data(&data);
 		extract_data(&data, av);
+	
 		resolution(&data);
+	
 		clean_stack(&data);
 	}
 	return (0);
