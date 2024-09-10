@@ -47,13 +47,7 @@ static t_operation	*operation_to_b(int value, t_data *data, int pos, int size)
 	op = init_operation();
 	while (value != *(int *)data->stack_b->content)
 	{
-		if (value == *(int *)data->stack_b->next->content
-			&& *(int *)data->stack_b->next->content > *(int *)data->stack_b->content)
-		{
-			sb(data, 0);
-			op = join_each_element(op, " sb ");
-		}
-		else if (pos > (size / 2) - 1)
+		if (pos > (size / 2) - 1)
 		{
 			rrb(data, 0);
 			op = join_each_element(op, " rrb ");
@@ -87,13 +81,7 @@ static t_operation	*operation_to_a(int value, t_data *data, int pos, int size)
 	op = init_operation();
 	while (value != *(int *)data->stack_a->content)
 	{
-		if (value == *(int *)data->stack_a->next->content
-			&& *(int *)data->stack_b->next->content > *(int *)data->stack_b->content)
-		{
-			sa(data, 0);
-			op = join_each_element(op, " sa ");
-		}
-		else if (pos > (size / 2) - 1)
+		if (pos > (size / 2) - 1)
 		{
 			rra(data, 0);
 			op = join_each_element(op, " rra ");
