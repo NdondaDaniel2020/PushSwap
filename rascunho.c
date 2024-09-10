@@ -16,3 +16,24 @@ int	main(int ac, char **av)
 {
 	return (0);
 }
+
+/*
+nao esquecer de deletar
+static	void	lstls(t_list *list)
+{
+	int	i;
+
+	i = 0;
+	if (list)
+	{
+		ft_printf("Lista\n");
+		while (list)
+		{
+			ft_printf("%i - %i\n", i, *(int *)list->content);
+			list = list->next;
+			i++;
+		}
+		ft_printf("\n");
+	}
+}
+*/

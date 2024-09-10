@@ -14,9 +14,9 @@
 
 t_operation	*send_max_to_the_top_of_b(t_data *data)
 {
-	int			pos;
-	int			size;
-	t_size		max_min;
+	int		pos;
+	int		size;
+	t_size	max_min;
 	t_operation	*op;
 
 	op = init_operation();
@@ -25,6 +25,33 @@ t_operation	*send_max_to_the_top_of_b(t_data *data)
 	while (!is_in_order_des(data->stack_b))
 	{
 		pos = get_pos_in_stack(max_min.max, data->stack_b);
+		if (pos > (size / 2) - 1)
+		{
+			rrb(data, 0);
+			op = join_each_element(op, " rrb ");
+		}
+		if (pos <= (size / 2) - 1)
+		{
+			rb(data, 0);
+			op = join_each_element(op, " rb ");
+		}
+	}
+	return (op);
+}
+
+t_operation	*send_min_to_the_top_of_a(t_data *data) // nao utilizada
+{
+	int		pos; // nao usado
+	int		size;
+	t_size	max_min;
+	t_operation	*op;
+
+	op = init_operation();
+	size = ft_lstsize(data->stack_a);
+	max_min = stack_max_and_min_value(data->stack_a);
+	while (!is_in_order_des(data->stack_a))
+	{
+		pos = get_pos_in_stack(max_min.min, data->stack_a);
 		if (pos > (size / 2) - 1)
 		{
 			rrb(data, 0);
