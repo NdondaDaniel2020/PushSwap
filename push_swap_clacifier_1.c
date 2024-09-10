@@ -23,7 +23,7 @@ void	sa(t_data *data, int i)
 		aux->next = data->stack_a->next;
 		data->stack_a->next = aux;
 		if (i == 1)
-			ft_printf("sa\n");
+			write(1, "sa\n", 3);
 	}
 }
 
@@ -38,7 +38,7 @@ void	sb(t_data *data, int i)
 		aux->next = data->stack_b->next;
 		data->stack_b->next = aux;
 		if (i == 1)
-			ft_printf("sb\n");
+			write(1, "sb\n", 3);
 	}
 }
 
@@ -46,7 +46,7 @@ void	ss(t_data *data)
 {
 	sa(data, 0);
 	sb(data, 0);
-	ft_printf("ss\n");
+	write(1, "ss\n", 3);
 }
 
 void	pa(t_data *data)
@@ -59,7 +59,7 @@ void	pa(t_data *data)
 		data->stack_b = data->stack_b->next;
 		aux->next = data->stack_a;
 		data->stack_a = aux;
-		ft_printf("pa\n");
+		write(1, "pa\n", 3);
 	}
 }
 
@@ -73,6 +73,6 @@ void	pb(t_data *data)
 		data->stack_a = data->stack_a->next;
 		aux->next = data->stack_b;
 		data->stack_b = aux;
-		ft_printf("pb\n");
+		write(1, "pb\n", 3);
 	}
 }
