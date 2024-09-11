@@ -71,6 +71,11 @@ $(BONUS):	$(LIBFT)
 $(LIBFT):
 	make bonus -C $(PLIBFT)
 
+
+r:
+	@$(CC) ./$(RF) $(LIBFT) -I$(INCLUDE) -o ./r
+
+
 clean:
 	@/bin/rm -f $(OBJ)
 	@/bin/rm -f $(BOBJ)
@@ -84,4 +89,4 @@ fclean:	clean
 
 re:	fclean all
 
-.PHONY: all bonus clean fclean re
+.PHONY: all bonus r clean fclean re
