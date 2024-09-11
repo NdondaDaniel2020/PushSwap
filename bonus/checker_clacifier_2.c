@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   checker_clacifier_2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmatondo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,53 +10,49 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "checker.h"
 
-void	lstls(t_list *list)
+void	ra(t_data *data, int i)
 {
-	int	i;
+	t_list	*aux;
+	t_list	*fir;
 
-	i = 0;
-	if (list)
+	if (ft_lstsize(data->stack_a) > 1)
 	{
-		ft_printf("Lista\n");
-		while (list)
-		{
-			ft_printf("%i - %i\n", i, *(int *)list->content);
-			list = list->next;
-			i++;
-		}
-		ft_printf("\n");
+		fir = data->stack_a;
+		aux = data->stack_a;
+		data->stack_a = data->stack_a->next;
+		while (aux->next)
+			aux = aux->next;
+		fir->next = NULL;
+		aux->next = fir;
+		if (i == 1)
+			write(1, "ra\n", 3);
 	}
 }
 
-void	init_data(t_data *data)
+void	rb(t_data *data, int i)
 {
-	data->stack_a = NULL;
-	data->stack_b = NULL;
-}
+	t_list	*aux;
+	t_list	*fir;
 
-static void	resolution(t_data *data)
-{
-	ft_printf("[%s]\n", get_next_line(0));
-}
-
-int	main(int ac, char **av)
-{
-	t_data	data;
-
-	(void)ac;
-	if (ac > 1)
+	if (ft_lstsize(data->stack_b) > 1)
 	{
-		init_data(&data);
-		extract_data(&data, av);
-	
-
-		resolution(&data);
-
-
-		lstls(data.stack_a);
-		clean_stack(&data);
+		fir = data->stack_b;
+		aux = data->stack_b;
+		data->stack_b = data->stack_b->next;
+		while (aux->next)
+			aux = aux->next;
+		fir->next = NULL;
+		aux->next = fir;
+		if (i == 1)
+			write(1, "rb\n", 3);
 	}
-	return (0);
+}
+
+void	rr(t_data *data)
+{
+	ra(data, 0);
+	rb(data, 0);
+	write(1, "rr\n", 3);
 }

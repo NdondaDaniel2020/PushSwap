@@ -12,8 +12,9 @@
 
 CC = cc
 NAME = ./push_swap
-BONUS = ./checker_linux
+BONUS = ./checker
 SRC = ./src/
+BONUS_DIR = ./bonus/
 INCLUDE = ./include
 
 FILES = push_swap.c \
@@ -36,6 +37,18 @@ SRC_FILES = $(addprefix $(SRC),$(FILES))
 OBJ = $(FILES:.c=.o)
 
 
+BFILES = checker.c \
+		 checker_clacifier_1.c \
+		 checker_clacifier_2.c \
+		 checker_clacifier_3.c \
+		 checker_utils_1.c \
+		 checker_utils_2.c \
+		 checker_utils_3.c \
+
+SRC_BFILES = $(addprefix $(BONUS_DIR),$(BFILES))
+BOBJ = $(BFILES:.c=.o)
+
+
 FLAGS = -Wall -Wextra -Werror
 PLIBFT = ./libft
 LIBFT = $(PLIBFT)/libft.a
@@ -48,31 +61,26 @@ $(NAME):	$(LIBFT)
 	@$(CC) $(FLAGS) -c $(SRC_FILES) -I$(INCLUDE)
 	@$(CC) $(FLAGS) $(OBJ) $(LIBFT) -I$(INCLUDE) -o $(NAME)
 
+bonus:	$(BONUS)
 
-# bonus:
-
-run: $(NAME)
-	@make clean
-	@$(CC) $(FLAGS) $(NAME) $(LIBFT) -o $(NAME)
-
-e:
-	$(CC) $(FLAGS) $(FILES) $(LIBFT) -o $(NAME)
-
-r:
-	$(CC) $(RF) $(LIBFT) -o ./r
+$(BONUS):	$(LIBFT)
+	@$(CC) $(FLAGS) -c $(SRC_BFILES) -I$(INCLUDE)
+	@$(CC) $(FLAGS) $(BOBJ) $(LIBFT) -I$(INCLUDE) -o $(BONUS)
 
 $(LIBFT):
 	make bonus -C $(PLIBFT)
 
 clean:
 	@/bin/rm -f $(OBJ)
+	@/bin/rm -f $(BOBJ)
 	make clean -C $(PLIBFT)
 
 fclean:	clean
 	@/bin/rm -f ./r
 	@/bin/rm -f $(NAME)
+	@/bin/rm -f $(BONUS)
 	@make fclean -C $(PLIBFT)
 
 re:	fclean all
 
-.PHONY: all bonus run e r clean fclean re
+.PHONY: all bonus clean fclean re

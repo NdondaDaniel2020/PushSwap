@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_utils_2.c                                :+:      :+:    :+:   */
+/*   checker_utils_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmatondo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "checker.h"
 
 static void	add_value_in_stack(t_data *data, char *num_in_char)
 {
@@ -82,17 +82,6 @@ int	is_in_order(t_list *list)
 	while (list->next)
 	{
 		if (*(int *)list->content > *(int *)list->next->content)
-			return (0);
-		list = list->next;
-	}
-	return (1);
-}
-
-int	is_in_order_des(t_list *list)
-{
-	while (list->next)
-	{
-		if (*(int *)list->content < *(int *)list->next->content)
 			return (0);
 		list = list->next;
 	}
