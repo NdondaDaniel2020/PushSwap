@@ -68,16 +68,6 @@ $(BONUS):	$(LIBFT)
 	@$(CC) $(FLAGS) -c $(SRC_BFILES) -I$(INCLUDE)
 	@$(CC) $(FLAGS) $(BOBJ) $(LIBFT) -I$(INCLUDE) -o $(BONUS)
 
-
-
-
-
-r:
-	$(CC) $(RF) $(LIBFT) -o ./r
-
-
-
-
 $(LIBFT):
 	make bonus -C $(PLIBFT)
 
@@ -94,4 +84,4 @@ fclean:	clean
 
 re:	fclean all
 
-.PHONY: all bonus r clean fclean re
+.PHONY: all bonus clean fclean re
