@@ -48,6 +48,7 @@ void	extract_data(t_data *data, char **data_list)
 		{
 			c = 0;
 			spliting_num = ft_split(data_list[i], ' ');
+			chek_duplicate_in_matrix(spliting_num, data);
 			while (spliting_num[c])
 			{
 				add_value_in_stack(data, spliting_num[c]);

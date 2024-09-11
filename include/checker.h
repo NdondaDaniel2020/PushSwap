@@ -56,6 +56,7 @@ void	check_dublicate(t_data *data, int num);
 void	do_operation(t_data *data, char *comand);
 void	check_size_number(t_data *data, char *num_in_char);
 void	check_is_number(t_data *data, char *num_in_char);
+void	chek_duplicate_in_matrix(char **spliting_num, t_data *data);
 
 int		is_in_order(t_list *list);
 int		valid_command(char *command);

@@ -31,7 +31,8 @@ FILES = push_swap.c \
 		push_swap_shortest_operation.c \
 		push_swap_utils_1.c \
 		push_swap_utils_2.c \
-		push_swap_utils_3.c
+		push_swap_utils_3.c \
+		push_swap_utils_4.c 
 
 SRC_FILES = $(addprefix $(SRC),$(FILES))
 OBJ = $(FILES:.c=.o)
@@ -45,6 +46,7 @@ BFILES = checker.c \
 		 checker_utils_1.c \
 		 checker_utils_2.c \
 		 checker_utils_3.c \
+		 checker_utils_4.c 
 
 SRC_BFILES = $(addprefix $(BONUS_DIR),$(BFILES))
 BOBJ = $(BFILES:.c=.o)

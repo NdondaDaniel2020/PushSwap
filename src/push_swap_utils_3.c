@@ -62,34 +62,10 @@ void	check_is_number(t_data *data, char *num_in_char)
 			if ((num_in_char[i] == '-' || num_in_char[i] == '+')
 				&& (i == 0 || num_in_char[i - 1] == ' ')
 				&& ft_isdigit(num_in_char[i + 1]))
-				ft_printf("");
+				write(1, "", 0);
 			else
 				error(data);
 		}
 		i++;
-	}
-}
-
-void	chek_duplicate_in_matrix(char **spliting_num, t_data *data)
-{
-	int	i;
-    int	c;
-
-	i = 0;
-	while (spliting_num[i])
-	{
-	    c = i + 1;
-        while (spliting_num[c])
-        {
-            if (ft_strlen(spliting_num[c]) == ft_strlen(spliting_num[i])
-                && ft_strncmp(spliting_num[i], spliting_num[c], 
-					ft_strlen(spliting_num[i])) == 0)
-            {
-                free_matrix(spliting_num);
-				error(data);
-            }
-            c++;
-        }
-        i++;
 	}
 }
