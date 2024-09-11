@@ -14,8 +14,8 @@
 # define CHECKER_H
 
 # include "../libft/libft.h"
-# include <fcntl.h>
 # include <limits.h>
+# include <stdio.h>
 
 typedef struct s_data
 {
@@ -53,11 +53,13 @@ void	free_matrix(char **matrix);
 void	extract_data(t_data *data, char **data_list);
 
 void	check_dublicate(t_data *data, int num);
+void	do_operation(t_data *data, char *comand);
 void	check_size_number(t_data *data, char *num_in_char);
 void	check_is_number(t_data *data, char *num_in_char);
 
-int		*value_to_pointer(int value);
 int		is_in_order(t_list *list);
+int		valid_command(char *command);
+int		*value_to_pointer(int value);
 
 t_size	stack_max_and_min_value(t_list *list);
 

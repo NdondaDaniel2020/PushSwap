@@ -10,9 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft/libft.h"
+#include <fcntl.h>
+#include <stdio.h>
 
 int	main(int ac, char **av)
 {
+	int		fd;
+	char	*line;
+
+	fd = 0;
+	while ((line = get_next_line(0)) != NULL)
+	{
+        printf("%s", line);
+        free(line); 
+    }
+	close(fd);
 	return (0);
 }
