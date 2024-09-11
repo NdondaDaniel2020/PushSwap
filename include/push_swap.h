@@ -70,10 +70,11 @@ void		rrr(t_data *data);
 
 void		error(t_data *data);
 
-void		check_size_number(t_data *data, char *num_in_char);
-void		check_is_number(t_data *data, char *num_in_char);
 void		free_operation(t_operation *op);
+void		check_is_number(t_data *data, char *num_in_char);
+void		check_size_number(t_data *data, char *num_in_char);
 void		free_all_operation(t_operation *op_a, t_operation *op_b);
+void		chek_duplicate_in_matrix(char **spliting_num, t_data *data);
 
 int			is_in_order(t_list *list);
 int			opcmp(char *s1, char *s2);
