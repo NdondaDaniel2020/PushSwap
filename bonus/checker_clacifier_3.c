@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_utils_1.c                                :+:      :+:    :+:   */
+/*   checker_clacifier_3.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmatondo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,61 +10,49 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "checker.h"
 
-void	lstdel_front(t_list **list)
-{
-	t_list	*removed;
-
-	if (*list)
-	{
-		removed = *list;
-		*list = removed->next;
-		free(removed->content);
-		free(removed);
-		removed = NULL;
-	}
-}
-
-void	clean_stack(t_data *data)
-{
-	while (data->stack_a != NULL)
-		lstdel_front(&data->stack_a);
-	while (data->stack_b != NULL)
-		lstdel_front(&data->stack_b);
-}
-
-int	*value_to_pointer(int value)
-{
-	int	*num;
-
-	num = (int *)malloc(sizeof(int));
-	*num = value;
-	return (num);
-}
-
-void	free_matrix(char **matrix)
-{
-	int	i;
-
-	i = 0;
-	while (matrix[i])
-	{
-		free(matrix[i]);
-		i++;
-	}
-	free(matrix);
-}
-
-void	check_dublicate(t_data *data, int num)
+void	rra(t_data *data, int i)
 {
 	t_list	*aux;
+	t_list	*last;
 
-	aux = data->stack_a;
-	while (aux)
+	if (ft_lstsize(data->stack_a) > 1)
 	{
-		if (*(int *)aux->content == num)
-			error(data);
-		aux = aux->next;
+		aux = data->stack_a;
+		while (aux->next->next)
+			aux = aux->next;
+		last = aux->next;
+		last->next = data->stack_a;
+		aux->next = NULL;
+		data->stack_a = last;
+		if (i == 1)
+			write(1, "rra\n", 4);
 	}
+}
+
+void	rrb(t_data *data, int i)
+{
+	t_list	*aux;
+	t_list	*last;
+
+	if (ft_lstsize(data->stack_b) > 1)
+	{
+		aux = data->stack_b;
+		while (aux->next->next)
+			aux = aux->next;
+		last = aux->next;
+		last->next = data->stack_b;
+		aux->next = NULL;
+		data->stack_b = last;
+		if (i == 1)
+			write(1, "rrb\n", 4);
+	}
+}
+
+void	rrr(t_data *data)
+{
+	rra(data, 0);
+	rrb(data, 0);
+	write(1, "rrr\n", 4);
 }

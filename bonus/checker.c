@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_clacifier_bonus_3.c                      :+:      :+:    :+:   */
+/*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmatondo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,49 +10,54 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "checker.h"
 
-void	rra(t_data *data, int i)
+void	lstls(t_list *list)
 {
-	t_list	*aux;
-	t_list	*last;
+	int	i;
 
-	if (ft_lstsize(data->stack_a) > 1)
+	i = 0;
+	if (list)
 	{
-		aux = data->stack_a;
-		while (aux->next->next)
-			aux = aux->next;
-		last = aux->next;
-		last->next = data->stack_a;
-		aux->next = NULL;
-		data->stack_a = last;
-		if (i == 1)
-			write(1, "rra\n", 4);
+		ft_printf("Lista\n");
+		while (list)
+		{
+			ft_printf("%i - %i\n", i, *(int *)list->content);
+			list = list->next;
+			i++;
+		}
+		ft_printf("\n");
 	}
 }
 
-void	rrb(t_data *data, int i)
+void	init_data(t_data *data)
 {
-	t_list	*aux;
-	t_list	*last;
-
-	if (ft_lstsize(data->stack_b) > 1)
-	{
-		aux = data->stack_b;
-		while (aux->next->next)
-			aux = aux->next;
-		last = aux->next;
-		last->next = data->stack_b;
-		aux->next = NULL;
-		data->stack_b = last;
-		if (i == 1)
-			write(1, "rrb\n", 4);
-	}
+	data->stack_a = NULL;
+	data->stack_b = NULL;
 }
 
-void	rrr(t_data *data)
+static void	resolution(t_data *data)
 {
-	rra(data, 0);
-	rrb(data, 0);
-	write(1, "rrr\n", 4);
+	(void)data;
+	ft_printf("[%s]\n", get_next_line(0));
+}
+
+int	main(int ac, char **av)
+{
+	t_data	data;
+
+	(void)ac;
+	if (ac > 1)
+	{
+		init_data(&data);
+		extract_data(&data, av);
+	
+
+		resolution(&data);
+
+
+		lstls(data.stack_a);
+		clean_stack(&data);
+	}
+	return (0);
 }
