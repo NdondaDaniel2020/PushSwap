@@ -36,10 +36,27 @@ void	init_data(t_data *data)
 	data->stack_b = NULL;
 }
 
-static void	resolution(t_data *data)
+void	resolution(t_data *data)
 {
-	(void)data;
-	ft_printf("[%s]\n", get_next_line(0));
+	char	*command;
+
+	command = get_next_line(0);
+	while (command != NULL)
+	{
+		if (valid_command(command))
+			do_operation(data, command);
+		else
+		{
+			free(command);
+			error(data);
+		}
+		free(command);
+		command = get_next_line(0);
+	}
+	if (is_in_order(data->stack_a))
+		write(1, "ok\n", 3);
+	else
+		write(1, "ko\n", 3);
 }
 
 int	main(int ac, char **av)
@@ -51,11 +68,7 @@ int	main(int ac, char **av)
 	{
 		init_data(&data);
 		extract_data(&data, av);
-	
-
 		resolution(&data);
-
-
 		lstls(data.stack_a);
 		clean_stack(&data);
 	}
