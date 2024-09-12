@@ -23,12 +23,12 @@ t_operation	*join_operation_to_do(t_operation *op_a, t_operation *op_b)
 	if (op_a->operation_to_do && !op_b->operation_to_do)
 	{
 		op->value = op_a->value;
-		op->operation_to_do = ft_strdup(op_a->operation_to_do);
+		op->operation_to_do = op_a->operation_to_do;
 	}
 	else if (op_b->operation_to_do && !op_a->operation_to_do)
 	{
 		op->value = op_b->value;
-		op->operation_to_do = ft_strdup(op_b->operation_to_do);
+		op->operation_to_do = op_b->operation_to_do;
 	}
 	else if (op_a->operation_to_do && op_b->operation_to_do)
 	{
@@ -40,58 +40,25 @@ t_operation	*join_operation_to_do(t_operation *op_a, t_operation *op_b)
 	return (op);
 }
 
-static t_operation	*operation_to_b(int value, t_data *data, int pos, int size)
-{
-	t_operation	*op;
-
-	op = init_operation();
-	while (value != *(int *)data->stack_b->content)
-	{
-		if (pos > (size / 2) - 1)
-		{
-			rrb(data, 0);
-			op = join_each_element(op, " rrb ");
-		}
-		else if (value != *(int *)data->stack_b->content
-			&& pos <= (size / 2) - 1)
-		{
-			rb(data, 0);
-			op = join_each_element(op, " rb ");
-		}
-	}
-	return (op);
-}
-
 t_operation	*count_operation_to_b(int value, t_data *data)
 {
 	int			pos;
 	int			size;
 	t_operation	*op;
 
+	op = init_operation();
 	size = ft_lstsize(data->stack_b);
 	pos = get_pos_in_stack(value, data->stack_b);
-	op = operation_to_b(value, data, pos, size);
-	return (op);
-}
-
-static t_operation	*operation_to_a(int value, t_data *data, int pos, int size)
-{
-	t_operation	*op;
-
-	op = init_operation();
-	while (value != *(int *)data->stack_a->content)
+	if (pos > (size / 2))
 	{
-		if (pos > (size / 2) - 1)
-		{
-			rra(data, 0);
-			op = join_each_element(op, " rra ");
-		}
-		else if (value != *(int *)data->stack_a->content
-			&& pos <= (size / 2) - 1)
-		{
-			ra(data, 0);
-			op = join_each_element(op, " ra ");
-		}
+		pos = size - pos;
+		while (pos--)
+			op = join_each_element(op, " rrb ");
+	}
+	else if (pos <= (size / 2))
+	{
+		while (pos--)
+			op = join_each_element(op, " rb ");
 	}
 	return (op);
 }
@@ -102,8 +69,19 @@ t_operation	*count_operation_to_a(int value, t_data *data)
 	int			size;
 	t_operation	*op;
 
+	op = init_operation();
 	size = ft_lstsize(data->stack_a);
 	pos = get_pos_in_stack(value, data->stack_a);
-	op = operation_to_a(value, data, pos, size);
+	if (pos > (size / 2))
+	{
+		pos = size - pos;
+		while (pos--)
+			op = join_each_element(op, " rra ");
+	}
+	else if (pos <= (size / 2))
+	{
+		while (pos--)
+			op = join_each_element(op, " ra ");
+	}
 	return (op);
 }

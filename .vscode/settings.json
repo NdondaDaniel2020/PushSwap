@@ -40,6 +40,12 @@
     "array": "c",
     "string_view": "c",
     "initializer_list": "c",
-    "checker.h": "c"
+    "checker.h": "c",
+    "optional": "c",
+    "system_error": "c",
+    "functional": "c",
+    "tuple": "c",
+    "type_traits": "c",
+    "utility": "c"
   }
 }
