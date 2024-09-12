@@ -97,10 +97,6 @@ void	clacifier_point(t_data *data)
 	pb(data);
 	while (ft_lstsize(data->stack_a) > 3)
 	{
-		ft_printf("///////////////////////////////////////////////////////////\n");
-		ft_printf("A\n");
-		lstls(data->stack_a);
-		ft_printf("B\n");
 		lstls(data->stack_b);
 		op = get_the_shortest_operation_a_to_b(data);
 		if (op->operation_to_do)
@@ -108,19 +104,25 @@ void	clacifier_point(t_data *data)
 		pb(data);
 		free_operation(op);
 	}
-	// case_3(data);
-	// if (!is_in_order_des(data->stack_b))
-	// 	last_order_stack_b(data);
-	// while (ft_lstsize(data->stack_b) > 0)
-	// {
-	// 	op = get_the_shortest_operation_b_to_a(data);
-	// 	if (op->operation_to_do)
-	// 		do_operation(data, op->operation_to_do);
-	// 	pa(data);
-	// 	free_operation(op);
-	// }
+	case_3(data);
+	if (!is_in_order_des(data->stack_b))
+		last_order_stack_b(data);
+	while (ft_lstsize(data->stack_b) > 0)
+	{
+		ft_printf("///////////////////////////////////////////////////////////\n");
+		ft_printf("A\n");
+		lstls(data->stack_a);
+		ft_printf("B\n");
+		lstls(data->stack_b);
+		op = get_the_shortest_operation_b_to_a(data);
+		if (op->operation_to_do)
+			do_operation(data, op->operation_to_do);
+		pa(data);
+		free_operation(op);
+	}
 	// while (is_in_order(data->stack_a) == 0)
 	// 	rra(data, 1);
+	ft_printf("((%i)) \n", is_in_order(data->stack_a));
 	ft_printf("///////////////////////////////////////////////////////////\n");
 	ft_printf("A\n");
 	lstls(data->stack_a);

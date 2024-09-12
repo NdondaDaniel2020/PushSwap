@@ -85,3 +85,32 @@ t_operation	*join_each_element(t_operation *op, char *new_op)
 		return (op);
 	}
 }
+
+t_bool_num	*get_successor(t_list *list, int value)
+{
+	int			i;
+	int			sum;
+	int			pressed;
+	t_bool_num	*valid_value;
+
+	valid_value = (t_bool_num *)malloc(sizeof(t_bool_num));
+	valid_value->valid = 0;
+	valid_value->num = 0;
+	if (!list)
+		return (valid_value);
+	i = 0;
+	pressed = INT_MIN;
+	while (list)
+	{
+		sum = value - *(int *)list->content;
+		if (sum < 0 && (sum > pressed || i == 0))
+		{
+			valid_value->valid = 1;
+			valid_value->num = *(int *)list->content;
+			pressed = sum;
+		}
+		list = list->next;
+		i++;
+	}
+	return (valid_value);
+}
