@@ -35,6 +35,18 @@ typedef struct s_bool_num
 	int	num;
 }		t_bool_num;
 
+typedef struct s_pos_value
+{
+	int	pos;
+	int	value;
+}		t_pos_value;
+
+typedef struct s_pos_value_pair
+{
+    t_pos_value a;
+    t_pos_value b;
+} 				t_pos_value_pair;
+
 typedef struct s_operation
 {
 	int		value;
@@ -84,8 +96,6 @@ int			get_pos_in_stack(int value, t_list *stack);
 
 char		*ft_charjoin_free(char *s1, char c, int l2);
 char		*join_string_operation_element(char *s_a, char *s_b);
-
-t_data		*cpy_data(t_data *data);
 
 t_size		stack_max_and_min_value(t_list *list);
 

@@ -30,10 +30,10 @@ static int	is_number(char *num_in_char)
 		}
 		i++;
 	}
-    return (1);
+	return (1);
 }
 
-static void check_is_number_in_matrix(char **spliting_num, t_data *data)
+static void	check_is_number_in_matrix(char **spliting_num, t_data *data)
 {
 	int	i;
 
@@ -52,24 +52,24 @@ static void check_is_number_in_matrix(char **spliting_num, t_data *data)
 void	chek_duplicate_in_matrix(char **spliting_num, t_data *data)
 {
 	int	i;
-    int	c;
+	int	c;
 
 	i = 0;
 	check_is_number_in_matrix(spliting_num, data);
 	while (spliting_num[i])
 	{
-	    c = i + 1;
-        while (spliting_num[c])
-        {
-            if (ft_strlen(spliting_num[c]) == ft_strlen(spliting_num[i])
-                && ft_strncmp(spliting_num[i], spliting_num[c], 
+		c = i + 1;
+		while (spliting_num[c])
+		{
+			if (ft_strlen(spliting_num[c]) == ft_strlen(spliting_num[i])
+				&& ft_strncmp(spliting_num[i], spliting_num[c],
 					ft_strlen(spliting_num[i])) == 0)
-            {
-                free_matrix(spliting_num);
+			{
+				free_matrix(spliting_num);
 				error(data);
-            }
-            c++;
-        }
-        i++;
+			}
+			c++;
+		}
+		i++;
 	}
 }

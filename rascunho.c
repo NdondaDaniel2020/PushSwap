@@ -12,33 +12,7 @@
 
 #include "push_swap.h"
 
-void		chek_duplicate_in_matrix(char	**spliting_num)
-{
-	int	i;
-    int	c;
-
-	i = 0;
-	while (spliting_num[i])
-	{
-	    c = i + 1;
-        while (spliting_num[c])
-        {
-            if (ft_strlen(spliting_num[c]) == ft_strlen(spliting_num[i])
-                && ft_strncmp(spliting_num[i], spliting_num[c], ft_strlen(spliting_num[i])) == 0)
-            {
-                //free()
-            }
-            c++;
-        }
-        i++;
-	}
-}
-
 int main(int ac, char **av)
 {
-    char	*spliting_num[5] = {"Danie", "Pedro", "anton", "MArco"};
-
-    ft_printf("[%i]\n", chek_duplicate(spliting_num));
-
     return (0);
 }

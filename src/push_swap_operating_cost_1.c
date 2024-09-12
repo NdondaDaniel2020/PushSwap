@@ -12,33 +12,6 @@
 
 #include "push_swap.h"
 
-t_data	*cpy_data(t_data *data)
-{
-	int		value;
-	t_list	*aux;
-	t_data	*new_data;
-
-	aux = data->stack_a;
-	new_data = (t_data *)malloc(sizeof(t_data));
-	init_data(new_data);
-	while (aux)
-	{
-		value = *(int *)aux->content;
-		ft_lstadd_back(&new_data->stack_a,
-			ft_lstnew((void *)value_to_pointer(value)));
-		aux = aux->next;
-	}
-	aux = data->stack_b;
-	while (aux)
-	{
-		value = *(int *)aux->content;
-		ft_lstadd_back(&new_data->stack_b,
-			ft_lstnew((void *)value_to_pointer(value)));
-		aux = aux->next;
-	}
-	return (new_data);
-}
-
 int	get_pos_in_stack(int value, t_list *stack)
 {
 	int		i;

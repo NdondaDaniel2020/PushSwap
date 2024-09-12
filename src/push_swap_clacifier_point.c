@@ -71,6 +71,24 @@ void	last_order_stack_b(t_data *data)
 	}
 }
 
+void	lstls(t_list *list) // remover
+{
+	int	i;
+
+	i = 0;
+	if (list)
+	{
+		ft_printf("Lista\n");
+		while (list)
+		{
+			ft_printf("%i - %i\n", i, *(int *)list->content);
+			list = list->next;
+			i++;
+		}
+		ft_printf("\n");
+	}
+}
+
 void	clacifier_point(t_data *data)
 {
 	t_operation	*op;
@@ -79,23 +97,33 @@ void	clacifier_point(t_data *data)
 	pb(data);
 	while (ft_lstsize(data->stack_a) > 3)
 	{
+		ft_printf("///////////////////////////////////////////////////////////\n");
+		ft_printf("A\n");
+		lstls(data->stack_a);
+		ft_printf("B\n");
+		lstls(data->stack_b);
 		op = get_the_shortest_operation_a_to_b(data);
 		if (op->operation_to_do)
 			do_operation(data, op->operation_to_do);
 		pb(data);
 		free_operation(op);
 	}
-	case_3(data);
-	if (!is_in_order_des(data->stack_b))
-		last_order_stack_b(data);
-	while (ft_lstsize(data->stack_b) > 0)
-	{
-		op = get_the_shortest_operation_b_to_a(data);
-		if (op->operation_to_do)
-			do_operation(data, op->operation_to_do);
-		pa(data);
-		free_operation(op);
-	}
-	while (is_in_order(data->stack_a) == 0)
-		rra(data, 1);
+	// case_3(data);
+	// if (!is_in_order_des(data->stack_b))
+	// 	last_order_stack_b(data);
+	// while (ft_lstsize(data->stack_b) > 0)
+	// {
+	// 	op = get_the_shortest_operation_b_to_a(data);
+	// 	if (op->operation_to_do)
+	// 		do_operation(data, op->operation_to_do);
+	// 	pa(data);
+	// 	free_operation(op);
+	// }
+	// while (is_in_order(data->stack_a) == 0)
+	// 	rra(data, 1);
+	ft_printf("///////////////////////////////////////////////////////////\n");
+	ft_printf("A\n");
+	lstls(data->stack_a);
+	ft_printf("B\n");
+	lstls(data->stack_b);
 }

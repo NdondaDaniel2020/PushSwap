@@ -22,19 +22,17 @@ t_operation	*send_max_to_the_top_of_b(t_data *data)
 	op = init_operation();
 	size = ft_lstsize(data->stack_b);
 	max_min = stack_max_and_min_value(data->stack_b);
-	while (!is_in_order_des(data->stack_b))
+	pos = get_pos_in_stack(max_min.max, data->stack_b);
+	if (pos > (size / 2))
 	{
-		pos = get_pos_in_stack(max_min.max, data->stack_b);
-		if (pos > (size / 2) - 1)
-		{
-			rrb(data, 0);
+		pos = size - pos;
+		while (pos--)
 			op = join_each_element(op, " rrb ");
-		}
-		if (pos <= (size / 2) - 1)
-		{
-			rb(data, 0);
+	}
+	else if (pos <= (size / 2))
+	{
+		while (pos--)
 			op = join_each_element(op, " rb ");
-		}
 	}
 	return (op);
 }
