@@ -18,17 +18,15 @@ t_operation	*join_operation_to_do(t_operation *op_a, t_operation *op_b)
 	char		*join_op;
 
 	op = init_operation();
-	if (!op_a && !op_b)
-		return (NULL);
 	if (op_a->operation_to_do && !op_b->operation_to_do)
 	{
 		op->value = op_a->value;
-		op->operation_to_do = op_a->operation_to_do;
+		op->operation_to_do = ft_strdup(op_a->operation_to_do);
 	}
 	else if (op_b->operation_to_do && !op_a->operation_to_do)
 	{
 		op->value = op_b->value;
-		op->operation_to_do = op_b->operation_to_do;
+		op->operation_to_do = ft_strdup(op_b->operation_to_do);
 	}
 	else if (op_a->operation_to_do && op_b->operation_to_do)
 	{

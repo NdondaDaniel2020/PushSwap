@@ -27,7 +27,6 @@ FILES = push_swap.c \
 		push_swap_join_operation.c \
 		push_swap_operating_cost_1.c \
 		push_swap_operating_cost_2.c \
-		push_swap_send_max_to_top.c \
 		push_swap_shortest_operation.c \
 		push_swap_utils_1.c \
 		push_swap_utils_2.c \
