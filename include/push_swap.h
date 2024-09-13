@@ -87,6 +87,7 @@ void		check_is_number(t_data *data, char *num_in_char);
 void		check_size_number(t_data *data, char *num_in_char);
 void		free_all_operation(t_operation *op_a, t_operation *op_b);
 void		chek_duplicate_in_matrix(char **spliting_num, t_data *data);
+void		send_max_to_the_top_of_b(t_data *data);
 
 int			is_in_order(t_list *list);
 int			opcmp(char *s1, char *s2);
@@ -109,5 +110,4 @@ t_operation	*get_the_shortest_operation_a_to_b(t_data *data);
 t_operation	*get_the_shortest_operation_b_to_a(t_data *data);
 t_operation	*join_each_element(t_operation *op, char *new_op);
 t_operation	*join_operation_to_do(t_operation *op_a, t_operation *op_b);
-
 #endif

@@ -36,6 +36,7 @@ static t_pos_value_pair	pos_value_in_stacks_point_a(t_data *data, t_list *aux)
 	int					size_stack[2];
 	t_pos_value_pair	pair;
 	t_bool_num			*predecessor;
+	t_size				max_min;
 
 	size_stack[0] = ft_lstsize(data->stack_a);
 	size_stack[1] = ft_lstsize(data->stack_b);
@@ -44,9 +45,10 @@ static t_pos_value_pair	pos_value_in_stacks_point_a(t_data *data, t_list *aux)
 	predecessor = get_predecessor(data->stack_b, pair.a.value);
 	pair.b.value = predecessor->num;
 	pair.b.pos = get_pos_in_stack(pair.b.value, data->stack_b);
-	if (pair.b.pos == -1)
+	max_min = stack_max_and_min_value(data->stack_b);
+	if (pair.b.pos == -1 || pair.a.value > max_min.max || pair.a.value < max_min.min)
 	{
-		pair.b.value = stack_max_and_min_value(data->stack_b).max;
+		pair.b.value = max_min.max;
 		pair.b.pos = get_pos_in_stack(pair.b.value, data->stack_b);
 	}
 	if (pair.a.pos > (size_stack[0] / 2))
@@ -92,12 +94,10 @@ static t_pos_value_pair	pos_value_in_stacks_point_b(t_data *data, t_list *aux)
 	size_stack[1] = ft_lstsize(data->stack_b);
 
 	pair.b.value = *(int *)aux->content;
-	pair.b.pos = get_pos_in_stack(pair.b.value, data->stack_a);
-	// fala no sucessor esta a pegar mal pense e rosolve
+	pair.b.pos = get_pos_in_stack(pair.b.value, data->stack_b);
 	successor = get_successor(data->stack_a, pair.b.value);
 	pair.a.value = successor->num;
-	
-	pair.a.pos = get_pos_in_stack(pair.a.value, data->stack_b);
+	pair.a.pos = get_pos_in_stack(pair.a.value, data->stack_a);
 	if (pair.a.pos > (size_stack[0] / 2))
 		pair.a.pos = size_stack[0] - pair.a.pos;
 	if (pair.b.pos > (size_stack[1] / 2))

@@ -31,38 +31,33 @@ int	get_pos_in_stack(int value, t_list *stack)
 
 t_bool_num	*get_predecessor(t_list *list, int value)
 {
-	int			i;
-	int			sum;
-	int			pressed;
-	t_bool_num	*valid_value;
+	long		predecessor;
+	t_bool_num	*valid_predecessor;
 
-	valid_value = (t_bool_num *)malloc(sizeof(t_bool_num));
-	valid_value->valid = 0;
-	valid_value->num = 0;
+	valid_predecessor = (t_bool_num *)malloc(sizeof(t_bool_num));
+	valid_predecessor->valid = 0;
+	valid_predecessor->num = 0;
 	if (!list)
-		return (valid_value);
-	i = 0;
-	pressed = stack_max_and_min_value(list).max;
+		return (valid_predecessor);
+	predecessor = LONG_MIN;
 	while (list)
 	{
-		sum = value - *(int *)list->content;
-		if (sum > 0 && (sum < pressed || i == 0))
-		{
-			valid_value->valid = 1;
-			valid_value->num = *(int *)list->content;
-			pressed = sum;
-		}
+		if (*(int *)list->content < value && *(int *)list->content > predecessor)
+        {
+            valid_predecessor->valid = 1;
+            valid_predecessor->num = *(int *)list->content;
+            predecessor = *(int *)list->content;
+        }
 		list = list->next;
-		i++;
 	}
-	return (valid_value);
+	return (valid_predecessor);
 }
 
-void	free_operation(t_operation *op)
+void    free_operation(t_operation *op)
 {
-	if (op->operation_to_do)
-		free(op->operation_to_do);
-	free(op);
+        if (op->operation_to_do)
+                free(op->operation_to_do);
+        free(op);
 }
 
 t_operation	*join_each_element(t_operation *op, char *new_op)
@@ -88,29 +83,25 @@ t_operation	*join_each_element(t_operation *op, char *new_op)
 
 t_bool_num	*get_successor(t_list *list, int value)
 {
-	int			i;
-	int			sum;
-	int			pressed;
-	t_bool_num	*valid_value;
+	long		successor;
+	t_bool_num	*valid_successor;
 
-	valid_value = (t_bool_num *)malloc(sizeof(t_bool_num));
-	valid_value->valid = 0;
-	valid_value->num = 0;
+	valid_successor = (t_bool_num *)malloc(sizeof(t_bool_num));
+	valid_successor->valid = 0;
+	valid_successor->num = 0;
 	if (!list)
-		return (valid_value);
-	i = 0;
-	pressed = INT_MIN;
+		return (valid_successor);
+	successor = LONG_MAX;
 	while (list)
 	{
-		sum = value - *(int *)list->content;
-		if (sum < 0 && (sum > pressed || i == 0))
-		{
-			valid_value->valid = 1;
-			valid_value->num = *(int *)list->content;
-			pressed = sum;
-		}
+        if (*(int *)list->content > value
+            && *(int *)list->content < successor)
+        {
+            valid_successor->valid = 1;
+            valid_successor->num = *(int *)list->content;
+            successor = *(int *)list->content;
+        }
 		list = list->next;
-		i++;
 	}
-	return (valid_value);
+	return (valid_successor);
 }
