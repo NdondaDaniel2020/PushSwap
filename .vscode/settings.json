@@ -36,6 +36,7 @@
   "C_Cpp_Runner.useAddressSanitizer": false,
   "C_Cpp.errorSquiggles": "disabled",
   "files.associations": {
+    "0": "c",
     "push_swap.h": "c",
     "array": "c",
     "string_view": "c",

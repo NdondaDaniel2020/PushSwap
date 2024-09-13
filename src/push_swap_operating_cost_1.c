@@ -42,22 +42,23 @@ t_bool_num	*get_predecessor(t_list *list, int value)
 	predecessor = LONG_MIN;
 	while (list)
 	{
-		if (*(int *)list->content < value && *(int *)list->content > predecessor)
-        {
-            valid_predecessor->valid = 1;
-            valid_predecessor->num = *(int *)list->content;
-            predecessor = *(int *)list->content;
-        }
+		if (*(int *)list->content < value
+			&& *(int *)list->content > predecessor)
+		{
+			valid_predecessor->valid = 1;
+			valid_predecessor->num = *(int *)list->content;
+			predecessor = *(int *)list->content;
+		}
 		list = list->next;
 	}
 	return (valid_predecessor);
 }
 
-void    free_operation(t_operation *op)
+void	free_operation(t_operation *op)
 {
-        if (op->operation_to_do)
-                free(op->operation_to_do);
-        free(op);
+	if (op->operation_to_do)
+		free(op->operation_to_do);
+	free(op);
 }
 
 t_operation	*join_each_element(t_operation *op, char *new_op)
@@ -94,13 +95,13 @@ t_bool_num	*get_successor(t_list *list, int value)
 	successor = LONG_MAX;
 	while (list)
 	{
-        if (*(int *)list->content > value
-            && *(int *)list->content < successor)
-        {
-            valid_successor->valid = 1;
-            valid_successor->num = *(int *)list->content;
-            successor = *(int *)list->content;
-        }
+		if (*(int *)list->content > value
+			&& *(int *)list->content < successor)
+		{
+			valid_successor->valid = 1;
+			valid_successor->num = *(int *)list->content;
+			successor = *(int *)list->content;
+		}
 		list = list->next;
 	}
 	return (valid_successor);
