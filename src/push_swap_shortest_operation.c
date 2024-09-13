@@ -114,7 +114,7 @@ t_operation	*get_the_shortest_operation_b_to_a(t_data *data)
 	t_pos_value_pair	min_pair;
 
 	i = 0;
-	aux = data->stack_a;
+	aux = data->stack_b;
 	while (aux)
 	{
 		pair = pos_value_in_stacks_point_b(data, aux);
