@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-static t_operation	*join_free_oper(t_pos_value a, t_pos_value b, t_data *data)
+static t_operation	*join_free_operation(t_pos_value a, t_pos_value b, t_data* data)
 {
 	t_operation	*join;
 	t_operation	*operation_to_do_a;
@@ -46,8 +46,7 @@ static t_pos_value_pair	pos_value_in_stacks_point_a(t_data *data, t_list *aux)
 	pair.b.value = predecessor->num;
 	pair.b.pos = get_pos_in_stack(pair.b.value, data->stack_b);
 	max_min = stack_max_and_min_value(data->stack_b);
-	if (pair.b.pos == -1 || pair.a.value > max_min.max
-		|| pair.a.value < max_min.min)
+	if (pair.b.pos == -1 || pair.a.value > max_min.max || pair.a.value < max_min.min)
 	{
 		pair.b.value = max_min.max;
 		pair.b.pos = get_pos_in_stack(pair.b.value, data->stack_b);
@@ -72,8 +71,7 @@ t_operation	*get_the_shortest_operation_a_to_b(t_data *data)
 	while (aux)
 	{
 		pair = pos_value_in_stacks_point_a(data, aux);
-		if (i == 0 || ((pair.a.pos + pair.b.pos)
-				< (min_pair.a.pos + min_pair.b.pos)))
+		if (i == 0 || ((pair.a.pos + pair.b.pos) < (min_pair.a.pos + min_pair.b.pos)))
 		{
 			min_pair.a.pos = pair.a.pos;
 			min_pair.b.pos = pair.b.pos;
@@ -83,7 +81,7 @@ t_operation	*get_the_shortest_operation_a_to_b(t_data *data)
 		aux = aux->next;
 		i++;
 	}
-	return (join_free_oper(min_pair.a, min_pair.b, data));
+	return (join_free_operation(min_pair.a, min_pair.b, data));
 }
 
 static t_pos_value_pair	pos_value_in_stacks_point_b(t_data *data, t_list *aux)
@@ -94,6 +92,7 @@ static t_pos_value_pair	pos_value_in_stacks_point_b(t_data *data, t_list *aux)
 
 	size_stack[0] = ft_lstsize(data->stack_a);
 	size_stack[1] = ft_lstsize(data->stack_b);
+
 	pair.b.value = *(int *)aux->content;
 	pair.b.pos = get_pos_in_stack(pair.b.value, data->stack_b);
 	successor = get_successor(data->stack_a, pair.b.value);
@@ -119,8 +118,7 @@ t_operation	*get_the_shortest_operation_b_to_a(t_data *data)
 	while (aux)
 	{
 		pair = pos_value_in_stacks_point_b(data, aux);
-		if (i == 0 || ((pair.a.pos + pair.b.pos)
-				< (min_pair.a.pos + min_pair.b.pos)))
+		if (i == 0 || ((pair.a.pos + pair.b.pos) < (min_pair.a.pos + min_pair.b.pos)))
 		{
 			min_pair.a.pos = pair.a.pos;
 			min_pair.b.pos = pair.b.pos;
@@ -130,5 +128,5 @@ t_operation	*get_the_shortest_operation_b_to_a(t_data *data)
 		aux = aux->next;
 		i++;
 	}
-	return (join_free_oper(min_pair.a, min_pair.b, data));
+	return (join_free_operation(min_pair.a, min_pair.b, data));
 }

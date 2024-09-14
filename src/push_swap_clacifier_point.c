@@ -71,6 +71,24 @@ void	last_order_stack_b(t_data *data)
 	}
 }
 
+void	lstls(t_list *list) // remover
+{
+	int	i;
+
+	i = 0;
+	if (list)
+	{
+		ft_printf("Lista\n"); // remover
+		while (list)
+		{
+			ft_printf("%i - %i\n", i, *(int *)list->content);
+			list = list->next;
+			i++;
+		}
+		ft_printf("\n");
+	}
+}
+
 void	clacifier_point(t_data *data)
 {
 	t_operation	*op;
